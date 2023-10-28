@@ -60,7 +60,12 @@ Uno, the classic card game, is now available in a digital format with real-time 
 - (Any additional technologies you decide to use)
 
 ## Wireframes
-(You can include a link to your wireframes or images here)
+![1](https://github.com/sfsu-csc-667-fall-2023/team-term-project-group-f/assets/69046025/7f2c82cf-3ef6-4b28-92b8-88e731d7e7cb)
+![2](https://github.com/sfsu-csc-667-fall-2023/team-term-project-group-f/assets/69046025/a1d23b9e-bcf0-4428-831f-f1018eebfacd)
+![3](https://github.com/sfsu-csc-667-fall-2023/team-term-project-group-f/assets/69046025/2f4a6a76-9e1a-4b52-91bc-6a53405f3e23)
+![4](https://github.com/sfsu-csc-667-fall-2023/team-term-project-group-f/assets/69046025/b10beac4-e143-4700-be6e-3407409b2a3e)
+![5](https://github.com/sfsu-csc-667-fall-2023/team-term-project-group-f/assets/69046025/6de13cca-f604-4e1d-9246-2e26f5104b2c)
+
 
 ## Challenges
 - Implementing complex game logic.
@@ -68,5 +73,5 @@ Uno, the classic card game, is now available in a digital format with real-time 
 - Delivering a smooth user experience across devices.
 
 ## Roadmap
-- Immediate next steps and milestones for the project.
+- Creating Presentation Slides and working on database
 - Areas where collaboration or support is needed.
