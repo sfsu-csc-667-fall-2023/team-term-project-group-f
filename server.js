@@ -3,6 +3,7 @@ const morgan = require("morgan");
 const createError = require("http-errors");
 const cookieParser = require("cookie-parser");
 const path = require("path");
+require("dotenv").config();
 
 const requestTime = require("./middleware/request-time");
 
