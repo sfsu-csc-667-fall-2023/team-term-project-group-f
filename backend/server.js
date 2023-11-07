@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const morgan = require("morgan");
 const createError = require("http-errors");
@@ -9,7 +11,7 @@ const requestTime = require("./middleware/request-time");
 console.log("Booting Server...");
 
 const app = express();
-app.use(requestTime);
+app.use(requestTime); // api logging middleware
 app.use(morgan("dev")); // a logging library to facilitate development (and eventually debugging
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
