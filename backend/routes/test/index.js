@@ -1,15 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../db/connection.js");
+const db = require("../../db/connection.js");
 
-router.get("/", (request, response) => {
-  const name = "Team F";
-  response.render('root', { name });
-
-  //response.send("Hello world from within a route!");
-})
-
-router.get("/test", (_request, response) => {
+router.get("/", (_request, response) => {
   console.log('test route hit')
   db.any(`INSERT INTO test_table ("test_string") VALUES ($1)`, [
     `Hello on ${new Date().toLocaleDateString("en-us", {
@@ -28,5 +21,4 @@ router.get("/test", (_request, response) => {
     response.json({ error });
   });
 });
-
 module.exports = router;

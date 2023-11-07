@@ -38,14 +38,17 @@ app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "backend", "static")));
 
 const rootRoutes = require("./routes/root");
-app.use("/", rootRoutes);
+const testRoutes = require("./routes/test/index.js");
+//app.use("/", rootRoutes);
+
+app.use("/test", testRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}!`);
 });
 
 app.use((request, response, next) => {
-  // console.log(request.headers)
+  console.log(request.headers)
   next(createError(404));
 });
 
