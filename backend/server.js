@@ -1,5 +1,8 @@
 require("dotenv").config();
 
+//const db = require("./db/connection.js");
+const pgp = require("pg-promise")();
+
 const express = require("express");
 const morgan = require("morgan");
 const createError = require("http-errors");
@@ -48,6 +51,12 @@ app.listen(PORT, () => {
 app.use((request, response, next) => {
   // console.log(request.headers)
   next(createError(404));
+});
+
+app.use(function (err, req, res, next) {
+  console.log("SERVER ERROR\n\r")
+  console.error(err.stack)
+  return res.status(500).send({err});
 });
 
 console.log("Server Booted!");
