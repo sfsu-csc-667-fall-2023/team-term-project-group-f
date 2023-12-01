@@ -1,53 +1,100 @@
-require("dotenv").config();
+const path = require("path");
+const { createServer } = require("http");
 
 const express = require("express");
-const morgan = require("morgan");
 const createError = require("http-errors");
+const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
-const path = require("path");
+const bodyParser = require("body-parser");
+const session = require("express-session");
+const { Server } = require("socket.io");
 
-const requestTime = require("./middleware/request-time");
-
-console.log("Booting Server...");
+const {
+  viewSessionData,
+  sessionLocals,
+  isAuthenticated,
+} = require("./middleware/");
 
 const app = express();
-app.use(requestTime); // api logging middleware
-app.use(morgan("dev")); // a logging library to facilitate development (and eventually debugging
+const httpServer = createServer(app);
+
+app.use(morgan("dev"));
+app.use(bodyParser.json());
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  }),
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
+app.use(express.static(path.join(__dirname, "static")));
 
-if (process.env.NODE_ENV == "development") {
+const PORT = process.env.PORT || 3000;
+
+if (process.env.NODE_ENV === "development") {
+  require("dotenv").config();
+
   const livereload = require("livereload");
   const connectLiveReload = require("connect-livereload");
-  const liveReloadServer = livereload.createServer();
-  liveReloadServer.watch(path.join(__dirname, "backend", "static"));
 
+  const liveReloadServer = livereload.createServer();
+  liveReloadServer.watch(path.join(__dirname, "static"));
   liveReloadServer.server.once("connection", () => {
     setTimeout(() => {
-      liveReloadServer.refresh("/");
+      liveReloadServer.refresh(`/`);
     }, 100);
   });
 
   app.use(connectLiveReload());
 }
 
-const PORT = process.env.PORT || 3000;
-
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "ejs");
-app.use(express.static(path.join(__dirname, "backend", "static")));
-
-const rootRoutes = require("./routes/root");
-app.use("/", rootRoutes);
-
-app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}!`);
+const sessionMiddleware = session({
+  store: new (require("connect-pg-simple")(session))({
+    createTableIfMissing: true,
+  }),
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: process.env.NODE_ENV !== "development" },
 });
 
-app.use((request, response, next) => {
-  // console.log(request.headers)
+app.use(sessionMiddleware);
+
+if (process.env.NODE_ENV === "development") {
+  app.use(viewSessionData);
+}
+
+app.use(sessionLocals);
+const io = new Server(httpServer);
+io.engine.use(sessionMiddleware);
+app.set("io", io);
+
+io.on("connection", (socket) => {
+  socket.join(socket.request.session.id);
+
+  if (socket.handshake.query !== undefined) {
+    socket.join(socket.handshake.query.id);
+  }
+});
+
+const Routes = require("./routes");
+
+app.use("/", Routes.landing);
+app.use("/auth", Routes.authentication);
+app.use("/lobby", isAuthenticated, Routes.lobby, Routes.chat);
+app.use("/games", isAuthenticated, Routes.game, Routes.chat);
+
+app.use((_request, _response, next) => {
   next(createError(404));
 });
 
-console.log("Server Booted!");
+// httpServer.listen(PORT, () => {
+//   console.log(`Server started on port ${PORT}`);
+// });
+
+app.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}`);
+});

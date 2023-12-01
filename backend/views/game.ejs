@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game <%= id %></title>
+    <link rel="stylesheet" href="/styles/pico.css" />
+    <link rel="stylesheet" href="/styles/games.css" />
+    <script src="/scripts/chat.js" defer></script>
+    <script src="/scripts/games.js" defer></script>
+  </head>
+  <body>
+    <nav class="container">
+      <ul>
+        <li>Jrob's Game</li>
+      </ul>
+      <ul>
+        <li><a href="/">Landing</a></li>
+        <li><a href="/auth/logout">Logout</a></li>
+        <li><a href="/lobby">Lobby</a></li>
+      </ul>
+    </nav>
+    <main class="container">
+      <h1>Game <%= id %></h1>
+      <section id="game-board">
+        <form method="post" action="/games/<%= id %>/hit" id="hit-form">
+          <button type="submit">Hit</button>
+        </form>
+        <form method="post" action="/games/<%= id %>/stay" id="stay-form">
+          <button type="submit">Stay</button>
+        </form>
+
+        <div class="hand dealer"></div>
+        <div class="hand player-one-hand"></div>
+        <div class="hand player-two-hand"></div>
+      </section>
+
+      <input
+        type="hidden"
+        name="game-socket-id"
+        id="game-socket-id"
+        value="<%= gameSocketId %>"
+      />
+      <input
+        type="hidden"
+        name="user-socket-id"
+        id="user-socket-id"
+        value="<%= userSocketId %>"
+      />
+
+      <%- include('partials/chat', { roomId: id }) %>
+    </main>
+
+    <template id="card">
+      <div class="card"></div>
+    </template>
+  </body>
+</html>

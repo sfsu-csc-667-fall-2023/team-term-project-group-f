@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Landing Page</title>
+    <link rel="stylesheet" href="/styles/pico.css" />
+  </head>
+  <body>
+    <nav class="container">
+      <ul>
+        <li>Jrob's Game</li>
+      </ul>
+      <ul>
+        <li><a href="/">Landing</a></li>
+        <li><a href="/auth/sign_up">Sign up</a></li>
+        <li><a href="/lobby">Lobby</a></li>
+        <li><a href="/games/42">Game 42</a></li>
+      </ul>
+    </nav>
+
+    <main class="container">
+      <h1>Landing page</h1>
+
+      <form method="post" action="/auth/sign_in">
+        <label for="email">
+          <input type="email" name="email" id="email" placeholder="Email" />
+        </label>
+        <label for="password">
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Password"
+        /></label>
+        <button type="submit">Login</button>
+      </form>
+    </main>
+  </body>
+</html>
