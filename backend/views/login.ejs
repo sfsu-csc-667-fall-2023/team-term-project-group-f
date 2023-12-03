@@ -1,12 +1,10 @@
-<!-- root.ejs -->
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Say Uno</title>
+  <title>Login - Say Uno</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -33,10 +31,21 @@
       margin-bottom: 20px;
     }
 
-    p {
-      color: #666;
-      font-size: 18px;
-      margin-bottom: 30px;
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    label {
+      margin-bottom: 10px;
+    }
+
+    input {
+      padding: 10px;
+      margin-bottom: 20px;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .button {
@@ -55,9 +64,15 @@
 <body>
   <div class="container">
     <h1>Say Uno</h1>
-    <p>Explore the possibilities of our term project with real-time collaborative features.</p>
-    <a href="/login" class="button">Login</a>
-    <a href="/signup" class="button" style="background-color: #28a745;">Sign Up</a>
+    <form>
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+
+      <a href="/login" class="button">Login</a>
+    </form>
   </div>
   <script src="/js/bundle.js"></script>
 </body>

@@ -2,32 +2,30 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db/connection.js");
 
-router.get("/", (request, response) => {
+router.get("/", (req, res) => {
+  console.log("Root route accessed");
   const name = "Team F";
-  response.render('root', { name });
+  res.render('root', { name });
+});
 
-  //response.send("Hello world from within a route!");
-})
-
-router.get("/test", (_request, response) => {
-  console.log(_request)
+router.get("/test", (req, res) => {
+  console.log("/test route accessed");
   db.any(
-    `INSERT INTO test_table ("test_string") VALUES ($1)`, [
-    `Hello on ${new Date().toLocaleDateString("en-us", {
+    `INSERT INTO test_table ("test_string") VALUES ($1)`,
+    [`Hello on ${new Date().toLocaleDateString("en-us", {
       hour: "numeric",
       minute: "numeric",
       month: "short",
       day: "numeric",
       weekday: "long",
       year: "numeric",
-    })}`,
-  ]
+    })}`]
   )
-  .then((_) => db.any(`SELECT * FROM test_table`))
-  .then((results) => response.json(results))
+  .then(() => db.any(`SELECT * FROM test_table`))
+  .then((results) => res.json(results))
   .catch((error) => {
-    console.log(error);
-    response.json({ error });
+    console.error(error);
+    res.status(500).json({ error: error.message });
   });
 });
 

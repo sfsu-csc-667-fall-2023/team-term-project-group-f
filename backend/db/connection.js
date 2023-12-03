@@ -1,14 +1,19 @@
+console.log('DATABASE_URL:', process.env.DATABASE_URL);
+
 const pgp = require("pg-promise")();
 
-const connection = pgp(process.env.DATABASE_URL);
-const db = pgp({
+const connection = pgp(process.env.DATABASE_URL || {
     user: 'student',
     password: 'student',
     host: 'localhost',
-    port: 5432, // Change to your PostgreSQL port if different
+    port: 5432,
     database: 'test'
-  });
-  
+
+});
+
+console.log('Manual Connection Details:', connection);
+
+  /*
     db.connect()
       .then(obj => {
           obj.done(); // success, release the connection;
@@ -17,6 +22,6 @@ const db = pgp({
       .catch(error => {
           console.error('Error connecting to the database:', error);
       });
-  
+      */
 
-module.exports = db;
+module.exports = connection;

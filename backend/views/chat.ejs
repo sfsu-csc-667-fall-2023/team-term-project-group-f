@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Include necessary scripts and styles -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/chat.js"></script>
+</head>
+
+<body>
+  <!-- Chat UI goes here -->
+  <div id="chat-container">
+    <!-- Display chat messages here -->
+    <div id="chat-messages"></div>
+
+    <!-- Input form for sending messages -->
+    <form id="chat-form">
+      <input type="text" id="message-input" autocomplete="off" placeholder="Type your message...">
+      <button type="submit">Send</button>
+    </form>
+  </div>
+</body>
+
+</html>

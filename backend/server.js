@@ -1,62 +1,74 @@
 require("dotenv").config();
 
-//const db = require("./db/connection.js");
-const pgp = require("pg-promise")();
-
 const express = require("express");
 const morgan = require("morgan");
 const createError = require("http-errors");
 const cookieParser = require("cookie-parser");
 const path = require("path");
-
+const http = require("http");
+const socketIo = require("socket.io");
 const requestTime = require("./middleware/request-time");
 
 console.log("Booting Server...");
 
 const app = express();
-app.use(requestTime); // api logging middleware
-app.use(morgan("dev")); // a logging library to facilitate development (and eventually debugging
+const server = http.createServer(app);
+const io = socketIo(server);
+
+// Middleware
+app.use(requestTime);
+app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-if (process.env.NODE_ENV == "development") {
-  const livereload = require("livereload");
-  const connectLiveReload = require("connect-livereload");
-  const liveReloadServer = livereload.createServer();
-  liveReloadServer.watch(path.join(__dirname, "backend", "static"));
+// Serve static files
+app.use(express.static(path.join(__dirname, "static")));
 
-  liveReloadServer.server.once("connection", () => {
-    setTimeout(() => {
-      liveReloadServer.refresh("/");
-    }, 100);
-  });
-
-  app.use(connectLiveReload());
-}
-
-const PORT = process.env.PORT || 3000;
-
+// View engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
-app.use(express.static(path.join(__dirname, "backend", "static")));
 
-const rootRoutes = require("./routes/root");
+// Routes
+const rootRoutes = require("./routes/rootRoutes");
+const loginRoutes = require("./routes/loginRoutes");
+const signupRoutes = require("./routes/signupRoutes");
+const loggedinRoutes = require("./routes/loggedinRoutes");
+const chatRoutes = require("./routes/chatRoutes");
+
 app.use("/", rootRoutes);
+app.use("/login", loginRoutes);
+app.use("/signup", signupRoutes);
+app.use("/loggedin", loggedinRoutes);
+app.use("/chat", chatRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}!`);
+// Socket.IO logic for chat
+io.on("connection", (socket) => {
+  console.log("A user connected");
+
+  socket.on("disconnect", () => {
+    console.log("User disconnected");
+  });
+
+  socket.on("chat message", (msg) => {
+    io.emit("chat message", msg);
+  });
 });
 
-app.use((request, response, next) => {
-  // console.log(request.headers)
+// Error handling
+app.use((req, res, next) => {
   next(createError(404));
 });
 
-app.use(function (err, req, res, next) {
-  console.log("SERVER ERROR\n\r")
-  console.error(err.stack)
-  return res.status(500).send({err});
+app.use((err, req, res, next) => {
+  console.error("SERVER ERROR\n\r", err.stack);
+  res.status(500).send({ error: err.message });
+});
+
+const PORT = process.env.PORT || 3000;
+
+server.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}!`);
 });
 
 console.log("Server Booted!");
