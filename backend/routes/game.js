@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
-const routes = require("./games");
+router.get("/:id", (request, response) => {
+  const { id } = request.params;
 
-routes.forEach(({ method, route, handler }) => {
-  router[method](route, handler);
+  response.render("game", { id });
 });
 
 module.exports = router;

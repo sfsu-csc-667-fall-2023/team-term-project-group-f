@@ -580,7 +580,7 @@ body > footer {
   width: 100%;
   margin-right: auto;
   margin-left: auto;
-  padding: var(--block-spacing-vertical) 0;
+  padding: 0;
 }
 
 /**
@@ -768,8 +768,8 @@ h3,
 h4,
 h5,
 h6 {
-  margin-top: 0;
-  margin-bottom: var(--typography-spacing-vertical);
+  /* margin-top: 0; */
+  /* margin-bottom: var(--typography-spacing-vertical); */
   color: var(--color);
   font-weight: var(--font-weight);
   font-size: var(--font-size);
@@ -2151,7 +2151,7 @@ details[open] > summary::after {
  */
 article {
   margin: var(--block-spacing-vertical) 0;
-  padding: var(--block-spacing-vertical) var(--block-spacing-horizontal);
+  /* padding: var(--block-spacing-vertical) var(--block-spacing-horizontal) 0; */
   border-radius: var(--border-radius);
   background: var(--card-background-color);
   box-shadow: var(--card-box-shadow);

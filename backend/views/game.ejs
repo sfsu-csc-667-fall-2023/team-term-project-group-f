@@ -1,58 +1,236 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Game <%= id %></title>
-    <link rel="stylesheet" href="/styles/pico.css" />
-    <link rel="stylesheet" href="/styles/games.css" />
-    <script src="/scripts/chat.js" defer></script>
-    <script src="/scripts/games.js" defer></script>
-  </head>
-  <body>
-    <nav class="container">
-      <ul>
-        <li>Jrob's Game</li>
-      </ul>
-      <ul>
-        <li><a href="/">Landing</a></li>
-        <li><a href="/auth/logout">Logout</a></li>
-        <li><a href="/lobby">Lobby</a></li>
-      </ul>
-    </nav>
-    <main class="container">
-      <h1>Game <%= id %></h1>
-      <section id="game-board">
-        <form method="post" action="/games/<%= id %>/hit" id="hit-form">
-          <button type="submit">Hit</button>
-        </form>
-        <form method="post" action="/games/<%= id %>/stay" id="stay-form">
-          <button type="submit">Stay</button>
-        </form>
 
-        <div class="hand dealer"></div>
-        <div class="hand player-one-hand"></div>
-        <div class="hand player-two-hand"></div>
-      </section>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game <%= id %>
+  </title>
+  <link rel="stylesheet" href="/styles/pico.css" />
+  <link rel="stylesheet" href="/styles/chat.css" />
+  <style>
+    main {
+      position: fixed;
+      display: flex;
+      height: 100vh;
+    }
 
-      <input
-        type="hidden"
-        name="game-socket-id"
-        id="game-socket-id"
-        value="<%= gameSocketId %>"
-      />
-      <input
-        type="hidden"
-        name="user-socket-id"
-        id="user-socket-id"
-        value="<%= userSocketId %>"
-      />
+    nav {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6%;
+      padding: 10px;
+    }
 
-      <%- include('partials/chat', { roomId: id }) %>
-    </main>
+    .logout {
+      list-style: none;
+      margin-left: auto;
+      padding: 0;
+    }
 
-    <template id="card">
-      <div class="card"></div>
-    </template>
-  </body>
+    .play-area {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      height: 15%;
+    }
+
+    .buttons-container {
+      display: flex;
+      gap: 10px;
+    }
+
+    .centered-image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 60%;
+    }
+
+    .centered-image img {
+      max-width: 50%;
+      max-height: 50%;
+      animation: rotateAnimation 10s linear infinite;
+    }
+
+    @keyframes rotateAnimation {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    button {
+      background-color: black;
+      color: white;
+      width: 50%;
+    }
+
+    .my-area {
+      display: flex;
+      width: 90%;
+      height: 25%;
+      padding: 10px;
+      margin: auto;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+    }
+
+    .mycard-button {
+      cursor: pointer;
+      margin: 10px;
+    }
+
+    .game-set {
+      width: 70%;
+      height: 100%;
+    }
+
+    .container {
+      margin-top: 60px;
+      width: 80%;
+      max-width: 500px;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+
+    }
+
+    .chat-set {
+      position: relative;
+      width: 30%;
+      height: 100%;
+      background-color: black;
+      text-align: center;
+    }
+
+    article {
+      width: 90%;
+      height: 70%;
+      overflow-y: auto;
+      margin: 0 20px;
+      padding: 20px;
+    }
+
+    .message-nav {
+      width: 95%;
+      margin: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    input[name="message"] {
+      width: 800px;
+      flex: 1;
+      margin: 10px;
+    }
+
+    .send-button {
+      width: 40%;
+      max-width: 90px;
+      color: #24333e;
+      margin: 10px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .button-options {
+      width: 80%;
+      max-width: 500px;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: auto;
+    }
+
+    .button-options button {
+      background-color: white;
+      color: black;
+      margin: 10px 0;
+    }
+
+    .avatar-container {
+      margin-top: 20px;
+    }
+
+    .avatar {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <div class="game-set">
+      <div class="play-area">
+        <p>Current turn: Scott</p>
+        <div class="buttons-container">
+          <button>Draw</button>
+          <button>Skip</button>
+          <button>Say Uno !!!</button>
+        </div>
+      </div>
+
+      <div class="centered-image">
+        <img src="../current-card.png" alt="Centered Image">
+      </div>
+
+      <div class="my-area">
+        <img src="../red-0.png" alt="Button 1" class="mycard-button" />
+        <img src="../green-null.png" alt="Button 2" class="mycard-button" />
+        <img src="../yellow-reverse.png" alt="Button 3" class="mycard-button" />
+        <img src="../yellow-3.png" alt="Button 4" class="mycard-button" />
+      </div>
+    </div>
+
+    <div class="chat-set">
+      <nav>
+        <div class="exit"><a href="/lobby">Exit Game</a></div>
+        <div class="logout"><a href="/auth/logout">Logout</a></div>
+      </nav>
+
+      <h2>Game <%= id %>
+      </h2>
+      <article>
+        <div class="message not-me">
+          <img src="https://placehold.co/50x50?text=PP" alt="Avatar" />
+          <p>Hello!!<br /> Oh wait me a second...</p>
+        </div>
+        <div class="message not-me">
+          <img src="https://placehold.co/50x50?text=SM" alt="Avatar" />
+          <p>Hey! I'm good. How many people joining toight?</p>
+        </div>
+        <div class="message not-me">
+          <img src="https://placehold.co/50x50?text=AP" alt="Avatar" />
+          <p>How're you doing?</p>
+        </div>
+        <div class="message me">
+          <img src="https://placehold.co/50x50?text=HA" alt="Avatar" />
+          <p>Hello guys!<br /> How're you guys doing?</p>
+        </div>
+      </article>
+      
+      <div class="message-nav">
+        <input type="text" name="message" id="message" placeholder="Message..." />
+        <!-- <button type="submit" class="send-button">Send</button> -->
+        <input type="image" src="../send-button.png" alt="Submit" name="message" />
+      </div>
+    </div>
+
+  </main>
+</body>
+
 </html>

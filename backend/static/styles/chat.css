@@ -1,10 +1,12 @@
 div.message {
   clear: both;
+  text-align: left;
 }
 
 div.me p {
   font-style: italic;
   color: #777;
+  text-align: right;
 }
 
 div.message img {

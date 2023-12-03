@@ -22,10 +22,12 @@ router.post("/sign_up", async (request, response) => {
   const salt = await bcrypt.genSalt(SALT_ROUNDS);
   const hash = await bcrypt.hash(password, salt);
 
-  const user = Users.create(email, hash);
+  const { id } = Users.create(email, hash);
 
-  request.session.id = user.id;
-  request.session.email = user.email;
+  request.session = {
+    id,
+    email,
+  };
 
   response.redirect("/lobby");
 });
@@ -42,6 +44,7 @@ router.post("/sign_in", async (request, response) => {
         id: user.id,
         email,
       };
+      console.log({ user, session: request.session });
 
       response.redirect("/lobby");
       return;
@@ -59,8 +62,6 @@ router.post("/sign_in", async (request, response) => {
 });
 
 router.get("/logout", (request, response) => {
-  request.session.destroy();
-
   response.redirect("/");
 });
 
