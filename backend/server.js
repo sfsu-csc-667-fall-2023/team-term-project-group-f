@@ -1,8 +1,8 @@
-require("dotenv").config();
+const path = require("path");
 
 const express = require("express");
-const morgan = require("morgan");
 const createError = require("http-errors");
+const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const path = require("path");
 const http = require("http");
@@ -21,6 +21,9 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
+app.use(express.static(path.join(__dirname, "static")));
 
 // Serve static files
 app.use(express.static(path.join(__dirname, "static")));

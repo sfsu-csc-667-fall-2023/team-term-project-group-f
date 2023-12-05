@@ -1,20 +1,30 @@
 {
+  "name": "term-project-jrob",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
     "start": "node ./backend/server.js",
-    "start:dev": "concurrently \"npm:server:dev\" \"npm:build:dev\"",
-    "server:dev": "SET NODE_ENV=development & nodemon ./backend/server.js",
     "build": "webpack",
+    "start:dev": "concurrently \"npm:server:dev\" \"npm:build:dev\"",
+    "server:dev": "set NODE_ENV=development&& nodemon ./backend/server.js",
     "build:dev": "webpack --watch",
     "prepare": "husky install",
-    "db:create": "node-pg-migrate create -( ",
+    "prettify": "prettier --write .",
+    "db:create": "node-pg-migrate create -- ",
     "db:migrate": "node-pg-migrate up",
     "db:rollback": "node-pg-migrate down"
   },
   "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown",
-    "frontend/**/*.js": "webpack"
+    "**/*": "prettier --write --ignore-unknown"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "connect-pg-simple": "^9.0.1",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.3.1",
     "ejs": "^3.1.9",
@@ -39,6 +49,7 @@
     "lint-staged": "^15.0.2",
     "livereload": "^0.9.3",
     "nodemon": "^3.0.1",
+    "prettier": "^3.0.3",
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4"
   }

@@ -1,0 +1,23 @@
+.card {
+  height: 150px;
+  width: 60px;
+  border: 1px solid gray;
+  border-radius: 3px;
+  float: left;
+  text-align: center;
+  font-size: 50px;
+}
+
+.card.suit-1,
+.card.suit-2 {
+  background-color: red;
+}
+
+.card.suit-3,
+.card.suit-4 {
+  background-color: darkgrey;
+}
+
+.hand {
+  clear: both;
+}

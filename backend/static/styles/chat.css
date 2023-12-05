@@ -1,0 +1,21 @@
+div.message {
+  clear: both;
+  text-align: left;
+}
+
+div.me p {
+  font-style: italic;
+  color: #777;
+  text-align: right;
+}
+
+div.message img {
+  border-radius: 25px;
+  float: left;
+  margin-right: 15px;
+}
+
+div.me img {
+  float: right;
+  margin-left: 15px;
+}
