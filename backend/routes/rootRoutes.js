@@ -6,8 +6,7 @@ const { connection: db } = database;
 
 router.get("/", (req, res) => {
   console.log("Root route accessed");
-  const name = "Team F";
-  res.render("root", { name });
+  res.render("global_lobby");
 });
 
 router.get("/test", (req, res) => {
