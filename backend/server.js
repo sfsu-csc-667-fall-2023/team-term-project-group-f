@@ -80,17 +80,31 @@ io.on("connection", (socket) => {
   }
 });
 
-const rootRoutes = require("./routes/rootRoutes");
-const loginRoutes = require("./routes/loginRoutes");
-const signupRoutes = require("./routes/signupRoutes");
-const loggedinRoutes = require("./routes/loggedinRoutes");
-const chatRoutes = require("./routes/chatRoutes");
+// Priya - front end
+// const rootRoutes = require("./routes/rootRoutes");
+// const loginRoutes = require("./routes/loginRoutes");
+// const signupRoutes = require("./routes/signupRoutes");
+// const loggedinRoutes = require("./routes/loggedinRoutes");
+// const chatRoutes = require("./routes/chatRoutes");
 
-app.use("/", rootRoutes);
-app.use("/login", loginRoutes);
-app.use("/signup", signupRoutes);
-app.use("/loggedin", loggedinRoutes);
-app.use("/chat", chatRoutes);
+// app.use("/", rootRoutes);
+// app.use("/login", loginRoutes);
+// app.use("/signup", signupRoutes);
+// app.use("/loggedin", loggedinRoutes);
+// app.use("/chat", chatRoutes);
+
+// Anh - front end
+const landingRoutes = require("./routes/landing");
+const authRoutes = require("./routes/authentication");
+const globalLobbyRoutes = require("./routes/global_lobby");
+const setNewgameRoutes = require("./routes/set_newgame");
+const gameRoutes = require("./routes/game");
+
+app.use("/", landingRoutes);
+app.use("/auth", authRoutes);
+app.use("/lobby", globalLobbyRoutes);
+app.use("/set_newgame", setNewgameRoutes);
+app.use("/games", gameRoutes);
 
 app.use((_request, _response, next) => {
   next(createError(404));
