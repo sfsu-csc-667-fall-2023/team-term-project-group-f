@@ -1,3 +1,4 @@
+// authentication.js
 const express = require("express");
 const bcrypt = require("bcrypt");
 const router = express.Router();
@@ -13,8 +14,8 @@ router.get("/sign_up", (_request, response) => {
 router.post("/sign_up", async (request, response) => {
   const { email, password } = request.body;
 
-  const user_exists = await Users.email_exists(email);
-  if (user_exists) {
+  const userExists = await Users.email_exists(email);
+  if (userExists) {
     response.redirect("/");
     return;
   }
@@ -22,9 +23,9 @@ router.post("/sign_up", async (request, response) => {
   const salt = await bcrypt.genSalt(SALT_ROUNDS);
   const hash = await bcrypt.hash(password, salt);
 
-  const { id } = Users.create(email, hash);
+  const { id } = await Users.create(email, hash);
 
-  request.session = {
+  request.session.user = {
     id,
     email,
   };
@@ -44,7 +45,6 @@ router.post("/sign_in", async (request, response) => {
         id: user.id,
         email,
       };
-      console.log({ user, session: request.session });
 
       response.redirect("/lobby");
       return;
@@ -54,7 +54,7 @@ router.post("/sign_in", async (request, response) => {
       });
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
     response.render("landing", {
       error: "The credentials you supplied are invalid.",
     });
@@ -62,7 +62,12 @@ router.post("/sign_in", async (request, response) => {
 });
 
 router.get("/logout", (request, response) => {
-  response.redirect("/");
+  request.session.destroy((err) => {
+    if (err) {
+      console.error(err);
+    }
+    response.redirect("/");
+  });
 });
 
 module.exports = router;

@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const path = require("path");
 const { createServer } = require("http");
 
@@ -20,11 +22,7 @@ const httpServer = createServer(app);
 
 app.use(morgan("dev"));
 app.use(bodyParser.json());
-app.use(
-  bodyParser.urlencoded({
-    extended: true,
-  }),
-);
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -35,8 +33,6 @@ app.use(express.static(path.join(__dirname, "static")));
 const PORT = process.env.PORT || 3000;
 
 if (process.env.NODE_ENV === "development") {
-  require("dotenv").config();
-
   const livereload = require("livereload");
   const connectLiveReload = require("connect-livereload");
 
@@ -55,7 +51,7 @@ const sessionMiddleware = session({
   store: new (require("connect-pg-simple")(session))({
     createTableIfMissing: true,
   }),
-  secret: true,
+  secret: process.env.SESSION_SECRET || "your-secret-key",
   resave: false,
   saveUninitialized: false,
   cookie: { secure: process.env.NODE_ENV !== "development" },
@@ -68,6 +64,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 app.use(sessionLocals);
+
 const io = new Server(httpServer);
 io.engine.use(sessionMiddleware);
 app.set("io", io);
@@ -80,20 +77,6 @@ io.on("connection", (socket) => {
   }
 });
 
-// Priya - front end
-// const rootRoutes = require("./routes/rootRoutes");
-// const loginRoutes = require("./routes/loginRoutes");
-// const signupRoutes = require("./routes/signupRoutes");
-// const loggedinRoutes = require("./routes/loggedinRoutes");
-// const chatRoutes = require("./routes/chatRoutes");
-
-// app.use("/", rootRoutes);
-// app.use("/login", loginRoutes);
-// app.use("/signup", signupRoutes);
-// app.use("/loggedin", loggedinRoutes);
-// app.use("/chat", chatRoutes);
-
-// Anh - front end
 const landingRoutes = require("./routes/landing");
 const authRoutes = require("./routes/authentication");
 const globalLobbyRoutes = require("./routes/global_lobby");
@@ -108,6 +91,12 @@ app.use("/games", gameRoutes);
 
 app.use((_request, _response, next) => {
   next(createError(404));
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send("Something went wrong!");
 });
 
 httpServer.listen(PORT, () => {

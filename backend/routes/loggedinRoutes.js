@@ -2,8 +2,11 @@
 const express = require("express");
 const router = express.Router();
 
+// Import the isAuthenticated middleware
+const { isAuthenticated } = require("../middleware");
+
 // Handle GET request for /loggedin
-router.get("/", (req, res) => {
+router.get("/", isAuthenticated, (req, res) => {
   res.render("loggedin");
 });
 
