@@ -11,9 +11,11 @@ router.get("/sign_up", (_request, response) => {
 });
 
 router.post("/sign_up", async (request, response) => {
+  console.log("POST sign_up triggered");
   const { email, password } = request.body;
 
   const user_exists = await Users.email_exists(email);
+
   if (user_exists) {
     response.redirect("/");
     return;
@@ -22,10 +24,10 @@ router.post("/sign_up", async (request, response) => {
   const salt = await bcrypt.genSalt(SALT_ROUNDS);
   const hash = await bcrypt.hash(password, salt);
 
-  const { id } = Users.create(email, hash);
+  const { id } = await Users.create(email, hash);
 
-  request.session = {
-    id,
+  request.session.user = {
+    id: id,
     email,
   };
 
