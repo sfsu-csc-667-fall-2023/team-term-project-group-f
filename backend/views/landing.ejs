@@ -83,13 +83,17 @@
 
     button[name="signup"] {
       width: 50%;
-      background-color: rgb(186, 186, 186);
+      background-color: white;
       color: white;
     }
 
     button[name="login"] {
       width: 45%;
       background-color: rgb(255, 182, 46);
+      text-decoration: none;
+    }
+
+    button[name="login"] a {
       color: white;
     }
   </style>
@@ -102,7 +106,7 @@
     </div>
     <h1>Login</h1>
 
-    <form method="post" action="/auth/sign_in">
+    <form method="post">
       <label for="email">
         <input type="email" name="email" id="email" placeholder="Email" />
       </label>
@@ -111,8 +115,8 @@
       </label>
 
       <div class="button-options">
-        <button type="submit" name="signup" formaction="/auth/sign_up">Sign In</button>
-        <button type="submit" name="login">Login</button>
+        <button type="submit" name="signup"><a href="/auth/sign_up">Create an account</a></button>
+        <button type="submit" name="login"><a href="/lobby">Login</a></button>
       </div>
     </form>
   </main>

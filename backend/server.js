@@ -98,12 +98,14 @@ const landingRoutes = require("./routes/landing");
 const authRoutes = require("./routes/authentication");
 const globalLobbyRoutes = require("./routes/global_lobby");
 const setNewgameRoutes = require("./routes/set_newgame");
+const unoRulesRoutes = require("./routes/uno_rules");
 const gameRoutes = require("./routes/game");
 
 app.use("/", landingRoutes);
 app.use("/auth", authRoutes);
 app.use("/lobby", globalLobbyRoutes);
 app.use("/set_newgame", setNewgameRoutes);
+app.use("/uno_rules", unoRulesRoutes);
 app.use("/games", gameRoutes);
 
 app.use((_request, _response, next) => {
