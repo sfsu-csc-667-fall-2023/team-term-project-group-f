@@ -75,6 +75,12 @@ io.on("connection", (socket) => {
   if (socket.handshake.query !== undefined) {
     socket.join(socket.handshake.query.id);
   }
+
+  // Listen for chat messages
+  socket.on("chat:message", ({ roomId, from, timestamp, message, hash }) => {
+    // Broadcast the message to everyone in the room
+    io.to(roomId).emit("chat:message", { from, timestamp, message, hash });
+  });
 });
 
 const landingRoutes = require("./routes/landing");
