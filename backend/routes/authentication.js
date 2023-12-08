@@ -12,9 +12,10 @@ router.get("/sign_up", (_request, response) => {
 });
 
 router.post("/sign_up", async (request, response) => {
+  console.log("POST sign_up triggered");
   const { email, password } = request.body;
 
-  const userExists = await Users.email_exists(email);
+  const user_exists = await Users.email_exists(email);
   if (userExists) {
     response.redirect("/");
     return;
@@ -25,8 +26,8 @@ router.post("/sign_up", async (request, response) => {
 
   const { id } = await Users.create(email, hash);
 
-  request.session.user = {
-    id,
+  request.session = {
+    id:id,
     email,
   };
 
