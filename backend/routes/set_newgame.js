@@ -17,8 +17,8 @@ router.post("/", async (request, response) => {
     console.log(result);
 
     // redirect to game page
-    response.status(200).send(`Game with id ${result.id} was made`);
-    // response.redirect(`/game/${result.id}`);
+    //response.status(200).send(`Game with id ${result.id} was made`);
+    response.redirect(`/game/${result.id}`);
   } catch (error) {
     console.error("Error creating game:", error);
     response.status(500).send("Error creating game");
