@@ -1,19 +1,23 @@
-console.log('DATABASE_URL:', process.env.DATABASE_URL);
+console.log("DATABASE_URL:", process.env.DATABASE_URL);
 
 const pgp = require("pg-promise")();
 
-const connection = pgp(process.env.DATABASE_URL || {
-    user: 'student',
-    password: 'student',
-    host: 'localhost',
-    port: 5432,
-    database: 'test'
+const connection = pgp(process.env.DATABASE_URL);
 
-});
+connection
+  .connect()
+  .then(async (obj) => {
+    // Can check the server version here (pg-promise v10.1.0+):
+    const serverVersion = obj.client.serverVersion;
+    console.log("db connected:", serverVersion);
 
-console.log('Manual Connection Details:', connection);
+    obj.done(); // success, release the connection;
+  })
+  .catch((error) => {
+    console.log("ERROR:", error.message || error);
+  });
 
-  /*
+/*
     db.connect()
       .then(obj => {
           obj.done(); // success, release the connection;
@@ -24,4 +28,4 @@ console.log('Manual Connection Details:', connection);
       });
       */
 
-module.exports = connection;
+module.exports = { connection };
