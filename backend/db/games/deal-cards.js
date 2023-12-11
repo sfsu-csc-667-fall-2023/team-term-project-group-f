@@ -18,8 +18,8 @@ const dealCards = (users, cards, gameId) => {
     "user_id",
   ]);
   const query =
-    pgp.helpers.update(dealtCards, columns, "game_cards") +
-    "WHERE v.card_id=t.card_id AND v.game_id=t.game_id";
+    pgp.helpers.update(dealtCards, columns, { table: "game_cards" }) +
+    " WHERE CAST(v.card_id AS INTEGER) = t.card_id AND CAST(v.game_id AS INTEGER) = t.game_id";
 
   return db.none(query).then((_) => dealtCards);
 };

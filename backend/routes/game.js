@@ -13,10 +13,11 @@ router.get("/:id", (request, response) => {
 });
 
 router.post("/join_game", async (request, response) => {
-  const userId = request.session.user; // Replace with actual user ID retrieval logic
-  const { gameId } = request.body;
+  console.log("POST join_game triggered");
+  // const userId = request.session.user; // Replace with actual user ID retrieval logic
+  const { gameId, userId } = request.body;
 
-  console.log(request.session);
+  console.log(request.body);
 
   try {
     await Games.addUser(userId, gameId);
@@ -26,6 +27,20 @@ router.post("/join_game", async (request, response) => {
   } catch (error) {
     console.error("Error joining game:", error);
     response.status(500).send("Error joining game");
+  }
+});
+
+// initialize game
+router.post("/:id/initialize", async (request, response) => {
+  const gameId = request.params.id;
+
+  try {
+    const gameState = await Games.initialize(gameId);
+
+    response.redirect(`/game/${gameId}`);
+  } catch (error) {
+    console.error("Error initializing game:", error);
+    response.status(500).send("Error initializing game");
   }
 });
 

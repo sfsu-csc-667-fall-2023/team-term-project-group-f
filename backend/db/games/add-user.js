@@ -4,7 +4,7 @@ const { userCount } = require("./user-count");
 
 const ADD_USER = `
   INSERT INTO game_users (user_id, game_id, seat)
-  VALUES ($1, $2, $3)
+  VALUES ($1, $2, $3) RETURNING game_id
 `;
 
 const addUser = (userId, gameId) =>
