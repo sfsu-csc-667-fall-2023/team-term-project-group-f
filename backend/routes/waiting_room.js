@@ -1,10 +1,19 @@
+// const express = require("express");
+// const router = express.Router();
+
+// router.get("/", (_request, response) => {
+//   response.render("waiting_room");
+// });
+
+// module.exports = router;
+
 const express = require("express");
 const { Games } = require("../db");
 const router = express.Router();
 
 // GET to display the game setup page
 router.get("/", (_request, response) => {
-  response.render("set_newgame");
+  response.render("waiting_room");
 });
 
 // POST to create a new game

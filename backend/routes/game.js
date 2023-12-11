@@ -12,7 +12,7 @@ router.get("/:id", (request, response) => {
   response.render("game", { id: gameId });
 });
 
-router.post("/join_game", async (request, response) => {
+router.post("/waiting_room", async (request, response) => {
   const userId = request.session.userId; // Replace with actual user ID retrieval logic
   const { gameId } = request.body;
 

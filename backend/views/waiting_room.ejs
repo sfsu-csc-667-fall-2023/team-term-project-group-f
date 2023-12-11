@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Set Up New Game</title>
+  <title>Lobby</title>
   <link rel="stylesheet" href="/styles/pico.css" />
   <link rel="stylesheet" href="/styles/chat.css" />
   <style>
@@ -21,6 +21,11 @@
       height: 6%;
       padding: 10px;
       margin-left: auto;
+    }
+
+    h1 {
+      color: black;
+      margin-top: auto;
     }
 
     /* nav.container {
@@ -41,6 +46,7 @@
       width: 70%;
       height: 100%;
       background: url('./background.jpg') center/cover no-repeat;
+
       text-align: center;
     }
 
@@ -55,26 +61,14 @@
 
     }
 
-    .select-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .num-select,
-    .player-select {
-      display: flex;
-      align-items: center;
-    }
-
-
     .chat-set {
       position: relative;
       width: 30%;
       height: 100%;
       background-color: black;
+
       text-align: center;
+      
     }
 
     article {
@@ -136,6 +130,20 @@
       border-radius: 50%;
       object-fit: cover;
     }
+
+
+    .room {
+        display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    }
+
+    .room button{
+        width: 20%;
+        background-color: white;
+    }
+
   </style>
 </head>
 
@@ -143,39 +151,21 @@
   <main>
     <div class="game-set">
       <div class="container">
-        <div class="avatar-container">
-          <img src="../set-newgame-avt.gif" alt="Avatar" class="avatar">
+        <form method="POST">
+        <p>WELCOME TO</p>
+        <h1>Waiting Room #1263</h1>
+
+        <div>
+          <p>----- 3/4 Player(s) -----</p>
+          <p>Player 1: Scott</p>
+          <p>Player 2: Anh</p>
+          <p>Player 3: You</p>
         </div>
-        <form method="POST">  <!-- POST to set_newgame route  -->
-          <div class="select-container">
-            <div class="num-select">
-              <select name="playerCount" id="playerCount">
-                <option value="0">Select number of player(s)</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-              </select>
-            </div>
 
-            <div class="player-select">
-              <select name="playerType" id="playerType">
-                <option value="0">Select your player(s)</option>
-                <option value="1">Computer</option>
-                <option value="2">Your friends</option>
-                <option value="2">Random people</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="button-options">
-            <button type="submit">START GAME</button>
-            <button type="submit"><a href="/">Exit</a></button>
-          </div>
-        </form>
+        <button type="submit">START GAME</button>
+      </form>
       </div>
     </div>
-
 
     <div class="chat-set">
       <form action="/logout?_method=DELETE" method="POST">
@@ -186,6 +176,10 @@
 
       <h2>Lobby Chat</h2>
       <article>
+        <div class="message me">
+          <img src="https://placehold.co/50x50?text=HA" alt="Avatar" />
+          <p>Hello guys!<br /> How're you guys doing?</p>
+        </div>
         <div class="message not-me">
           <img src="https://placehold.co/50x50?text=PP" alt="Avatar" />
           <p>Hello!!<br /> Oh wait me a second...</p>
@@ -194,22 +188,19 @@
           <img src="https://placehold.co/50x50?text=SM" alt="Avatar" />
           <p>Hey! I'm good. How many people joining toight?</p>
         </div>
-        <div class="message me">
-          <img src="https://placehold.co/50x50?text=HA" alt="Avatar" />
-          <p>Hello guys!<br /> How're you guys doing?</p>
-        </div>
         <div class="message not-me">
           <img src="https://placehold.co/50x50?text=AP" alt="Avatar" />
           <p>Hi Hoang-Anh, I'm good! <br />How're you doing?</p>
         </div>
       </article>
-
+      
       <div class="message-nav">
         <input type="text" name="message" id="message" placeholder="Message..." />
         <!-- <button type="submit" class="send-button">Send</button> -->
-        <input type="image" src="../send-button.png" alt="Submit" name="message" />
+        <input type="image" src="./send-button.png" alt="Submit" name="message" />
       </div>
     </div>
+
   </main>
 </body>
 
