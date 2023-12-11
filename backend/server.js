@@ -80,19 +80,6 @@ io.on("connection", (socket) => {
   }
 });
 
-// Priya - front end
-// const rootRoutes = require("./routes/rootRoutes");
-// const loginRoutes = require("./routes/loginRoutes");
-// const signupRoutes = require("./routes/signupRoutes");
-// const loggedinRoutes = require("./routes/loggedinRoutes");
-// const chatRoutes = require("./routes/chatRoutes");
-
-// app.use("/", rootRoutes);
-// app.use("/login", loginRoutes);
-// app.use("/signup", signupRoutes);
-// app.use("/loggedin", loggedinRoutes);
-// app.use("/chat", chatRoutes);
-
 // Anh - front end
 const landingRoutes = require("./routes/landing");
 const authRoutes = require("./routes/authentication");
