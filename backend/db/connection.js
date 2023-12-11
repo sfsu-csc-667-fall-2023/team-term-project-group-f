@@ -9,7 +9,7 @@ connection
   .then(async (obj) => {
     // Can check the server version here (pg-promise v10.1.0+):
     const serverVersion = obj.client.serverVersion;
-    console.log("db connected:", serverVersion);
+    console.log("db connected to DB:", obj.client.database, serverVersion);
 
     obj.done(); // success, release the connection;
   })
