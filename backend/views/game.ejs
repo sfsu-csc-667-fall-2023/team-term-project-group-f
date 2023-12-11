@@ -26,6 +26,7 @@
     .logout {
       list-style: none;
       margin-left: auto;
+      width: auto;
       padding: 0;
     }
 
@@ -198,8 +199,10 @@
 
     <div class="chat-set">
       <nav>
-        <div class="exit"><a href="/lobby">Exit Game</a></div>
-        <div class="logout"><a href="/auth/logout">Logout</a></div>
+        <div class="exit"><a href="/">Exit Game</a></div>
+        <form action="/logout?_method=DELETE" method="POST">
+            <button class="logout">Logout</button>
+        </form>
       </nav>
 
       <h2>Game <%= id %>

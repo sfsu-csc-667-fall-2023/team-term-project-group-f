@@ -4,13 +4,11 @@ const { Games } = require("../db");
 
 // router.get("/:id", (request, response) => {
 //   const { id } = request.params;
-
 //   response.render("game", { id: result.id });
 // });
 
 router.get("/:id", (request, response) => {
   const gameId = request.params.id;
-
   response.render("game", { id: gameId });
 });
 
