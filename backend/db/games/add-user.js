@@ -9,7 +9,7 @@ const ADD_USER = `
 
 const addUser = (userId, gameId) =>
   userCount(gameId).then((playerCount) =>
-    db.none(ADD_USER, [userId, gameId, playerCount]),
+    db.one(ADD_USER, [userId, gameId, playerCount]),
   );
 
 module.exports = { addUser };
