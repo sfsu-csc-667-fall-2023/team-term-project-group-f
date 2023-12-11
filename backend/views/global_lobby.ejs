@@ -17,11 +17,13 @@
     nav {
       top: 0;
       left: 0;
-      width: 100%;
+      width: 40%;
       height: 6%;
       padding: 10px;
+      margin-left: auto;
     }
 
+    
     /* nav.container {
       display: flex;
       justify-content: space-between;
@@ -32,7 +34,7 @@
 
     .logout {
       list-style: none;
-      margin-left: auto;
+      margin-bottom: 0;
       padding: 0;
     }
 
@@ -62,11 +64,12 @@
       background-color: black;
 
       text-align: center;
+      
     }
 
     article {
       width: 90%;
-      height: 70%;
+      height: 65%;
       overflow-y: auto;
       margin: 0 20px;
       padding: 20px;
@@ -139,15 +142,19 @@
           <button type="submit"><a href="/join_game">JOIN GAME</a></button>
           <!-- <button type="submit">MY RECORDS</button> -->
           <button type="submit"><a href="https://www.officialgamerules.org/uno">RULES</a></button> 
-          <button type="submit"><a href="/auth/logout">LOG OUT</a></button>
+          <form action="/logout?_method=DELETE" method="POST">
+            <button type="submit">LOG OUT</button>
+          </form>
         </div>
       </div>
     </div>
 
     <div class="chat-set">
-      <nav>
-        <div class="logout"><a href="/auth/logout">Logout</a></div>
-      </nav>
+      <form action="/logout?_method=DELETE" method="POST">
+        <nav>
+          <button class="logout">Logout</button>
+        </nav>
+      </form>
 
       <h2>Lobby Chat</h2>
       <article>

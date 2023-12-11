@@ -106,7 +106,12 @@
     </div>
     <h1>Login</h1>
 
-    <form method="post">
+    <form method="POST" action="/sign_in">
+      <% if (messages.error) { %>
+        <div class="alert alert-danger">
+          <strong><%= messages.error %> </strong>
+        </div>
+      <% } %> 
       <label for="email">
         <input type="email" name="email" id="email" placeholder="Email" />
       </label>
@@ -115,8 +120,8 @@
       </label>
 
       <div class="button-options">
-        <button type="submit" name="signup"><a href="/auth/sign_up">Create an account</a></button>
-        <button type="submit" name="login"><a href="/lobby">Login</a></button>
+        <button type="submit" name="signup"><a href="/sign_up">Create an account</a></button>
+        <button type="submit" name="login">Login</button>
       </div>
     </form>
   </main>

@@ -1,20 +1,33 @@
 require("dotenv").config();
 
 const path = require("path");
-const { createServer } = require("http");
 
 const express = require("express");
+const session = require("express-session");
+const { createServer } = require("http");
+const { Server } = require("socket.io");
+const passport = require("passport");
+const methodOverride = require("method-override");
 const createError = require("http-errors");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
-const session = require("express-session");
-const { Server } = require("socket.io");
+
+const bcrypt = require("bcrypt");
+const initializePassport = require("./routes/passport-config");
+const flash = require("express-flash");
+initializePassport(
+  passport,
+  (email) => users.find((user) => user.email === email),
+  (id) => users.find((user) => user.id === id),
+);
+const users = [];
 
 const {
   viewSessionData,
   sessionLocals,
-  isAuthenticated,
+  checkAuthenticated,
+  checkNotAuthenticated,
 } = require("./middleware/");
 
 const app = express();
@@ -25,6 +38,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(flash());
 app.use(cookieParser());
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -51,13 +65,15 @@ const sessionMiddleware = session({
   store: new (require("connect-pg-simple")(session))({
     createTableIfMissing: true,
   }),
-  secret: process.env.SESSION_SECRET || "your-secret-key",
+  secret: process.env.SESSION_SECRET || "key",
   resave: false,
   saveUninitialized: false,
   cookie: { secure: process.env.NODE_ENV !== "development" },
 });
-
 app.use(sessionMiddleware);
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(methodOverride("_method"));
 
 if (process.env.NODE_ENV === "development") {
   app.use(viewSessionData);
@@ -90,12 +106,11 @@ const setNewgameRoutes = require("./routes/set_newgame");
 const unoRulesRoutes = require("./routes/uno_rules");
 const gameRoutes = require("./routes/game");
 
-app.use("/", landingRoutes);
-app.use("/auth", authRoutes);
-app.use("/lobby", globalLobbyRoutes);
+app.use("/", authenticationRoutes);
+// app.use("/lobby", globalLobbyRoutes);
 app.use("/set_newgame", setNewgameRoutes);
 app.use("/uno_rules", unoRulesRoutes);
-app.use("/games", gameRoutes);
+app.use("/game", gameRoutes);
 
 app.use((_request, _response, next) => {
   next(createError(404));

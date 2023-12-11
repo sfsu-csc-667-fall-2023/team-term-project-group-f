@@ -17,9 +17,10 @@
     nav {
       top: 0;
       left: 0;
-      width: 100%;
+      width: 40%;
       height: 6%;
       padding: 10px;
+      margin-left: auto;
     }
 
     /* nav.container {
@@ -32,7 +33,7 @@
 
     .logout {
       list-style: none;
-      margin-left: auto;
+      margin-bottom: 0;
       padding: 0;
     }
 
@@ -78,7 +79,7 @@
 
     article {
       width: 90%;
-      height: 70%;
+      height: 65%;
       overflow-y: auto;
       margin: 0 20px;
       padding: 20px;
@@ -145,40 +146,43 @@
         <div class="avatar-container">
           <img src="../set-newgame-avt.gif" alt="Avatar" class="avatar">
         </div>
+        <form method="POST">  <!-- POST to set_newgame route  -->
+          <div class="select-container">
+            <div class="num-select">
+              <select name="playerCount" id="playerCount">
+                <option value="0">Select number of player(s)</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+              </select>
+            </div>
 
-        <div class="select-container">
-          <div class="num-select">
-            <select id="playerCount">
-              <option value="0">Select number of player(s)</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-            </select>
+            <div class="player-select">
+              <select name="playerType" id="playerType">
+                <option value="0">Select your player(s)</option>
+                <option value="1">Computer</option>
+                <option value="2">Your friends</option>
+                <option value="2">Random people</option>
+              </select>
+            </div>
           </div>
 
-          <div class="player-select">
-            <select id="playerType">
-              <option value="0">Select your player(s)</option>
-              <option value="1">Computer</option>
-              <option value="2">Your friends</option>
-              <option value="2">Random people</option>
-            </select>
+          <div class="button-options">
+            <button type="submit">START GAME</button>
+            <button type="submit"><a href="/">Exit</a></button>
           </div>
-        </div>
-
-        <div class="button-options">
-          <button type="submit"><a href="/games/42">START GAME</a></button>
-          <button type="submit"><a href="/lobby">Exit</a></button>
-        </div>
+        </form>
       </div>
     </div>
 
 
     <div class="chat-set">
-      <nav>
-        <div class="logout"><a href="/auth/logout">Logout</a></div>
-      </nav>
+      <form action="/logout?_method=DELETE" method="POST">
+        <nav>
+          <button class="logout">Logout</button>
+        </nav>
+      </form>
 
       <h2>Lobby Chat</h2>
       <article>
