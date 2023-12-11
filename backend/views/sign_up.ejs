@@ -110,9 +110,9 @@
     </div>
     <h1>Create New Account</h1>
 
-    <form method="post" action="/auth/sign_up">
+    <form method="POST" action="/sign_up">
       <label for="username">
-        <input type="text" name="username" id="username" placeholder="Username" />
+        <input type="text" name="username" id="name" placeholder="Username" />
       </label>
       <label for="email">
         <input type="email" name="email" id="email" placeholder="Email" />
@@ -125,8 +125,8 @@
       </label>
 
       <div class="button-options">
-        <button type="submit" name="login" ><a href="/">Login</a></button>
-        <button type="submit" name="signup"><a href="/">Sign In</a></button>
+        <button type="submit" name="login" ><a href="/sign_in">Login</a></button>
+        <button type="submit" name="signup">Sign In</button>
       </div>
     </form>
   </main>
