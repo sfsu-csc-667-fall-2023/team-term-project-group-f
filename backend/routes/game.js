@@ -13,7 +13,7 @@ router.get("/:id", (request, response) => {
 });
 
 router.post("/join_game", async (request, response) => {
-  const userId = request.session.userId; // Replace with actual user ID retrieval logic
+  const userId = request.session.user; // Replace with actual user ID retrieval logic
   const { gameId } = request.body;
 
   console.log(request.session);

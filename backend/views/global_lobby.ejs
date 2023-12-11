@@ -139,7 +139,10 @@
 
         <div class="button-options">
           <button type="submit"><a href="/set_newgame">START NEW GAME</a></button>
-          <button type="submit"><a href="/join_game">JOIN GAME</a></button>
+          <!-- <button type="submit"><a href="/join_game">JOIN GAME</a></button> -->
+          <form action="/game/join_game" method="POST">
+            <button type="submit">JOIN GAME</button>
+          </form>
           <!-- <button type="submit">MY RECORDS</button> -->
           <button type="submit"><a href="https://www.officialgamerules.org/uno">RULES</a></button> 
           <form action="/logout?_method=DELETE" method="POST">
