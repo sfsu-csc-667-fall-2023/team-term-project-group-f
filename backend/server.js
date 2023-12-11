@@ -106,7 +106,7 @@ const setNewgameRoutes = require("./routes/set_newgame");
 const unoRulesRoutes = require("./routes/uno_rules");
 const gameRoutes = require("./routes/game");
 
-app.use("/", authenticationRoutes);
+app.use("/", authRoutes);
 // app.use("/lobby", globalLobbyRoutes);
 app.use("/set_newgame", setNewgameRoutes);
 app.use("/uno_rules", unoRulesRoutes);
