@@ -23,8 +23,6 @@ router.post("/", async (request, response) => {
   try {
     const result = await Games.create(playerCount);
 
-    console.log(result);
-
     // redirect to game page
     //response.status(200).send(`Game with id ${result.id} was made`);
     response.redirect(`/game/${result.id}`);
