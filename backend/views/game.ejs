@@ -4,10 +4,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Game <%= id %>
-  </title>
+  <title>Game <%= id %></title>
   <link rel="stylesheet" href="/styles/pico.css" />
   <link rel="stylesheet" href="/styles/chat.css" />
+  <link rel="stylesheet" href="/styles/landing.css" />
   <style>
     main {
       position: fixed;
@@ -110,6 +110,13 @@
       background-color: black;
       text-align: center;
     }
+    .game-set {
+    width: 70%;
+    height: 100%;
+    background: none;
+
+    text-align: center;
+}
 
     article {
       width: 90%;
@@ -200,37 +207,13 @@
     <div class="chat-set">
       <nav>
         <div class="exit"><a href="/">Exit Game</a></div>
-        <form action="/logout?_method=DELETE" method="POST">
+        <form action="/sign_in" method="POST">
             <button class="logout">Logout</button>
         </form>
       </nav>
 
-      <h2>Game <%= id %>
-      </h2>
-      <article>
-        <div class="message not-me">
-          <img src="https://placehold.co/50x50?text=PP" alt="Avatar" />
-          <p>Hello!!<br /> Oh wait me a second...</p>
-        </div>
-        <div class="message not-me">
-          <img src="https://placehold.co/50x50?text=SM" alt="Avatar" />
-          <p>Hey! I'm good. How many people joining toight?</p>
-        </div>
-        <div class="message not-me">
-          <img src="https://placehold.co/50x50?text=AP" alt="Avatar" />
-          <p>How're you doing?</p>
-        </div>
-        <div class="message me">
-          <img src="https://placehold.co/50x50?text=HA" alt="Avatar" />
-          <p>Hello guys!<br /> How're you guys doing?</p>
-        </div>
-      </article>
-      
-      <div class="message-nav">
-        <input type="text" name="message" id="message" placeholder="Message..." />
-        <!-- <button type="submit" class="send-button">Send</button> -->
-        <input type="image" src="../send-button.png" alt="Submit" name="message" />
-      </div>
+      <h2>Game <%= id %></h2>
+      <%- include('chat', { roomId: 0 }) %>
     </div>
 
   </main>

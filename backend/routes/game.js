@@ -1,6 +1,7 @@
 const express = require("express");
 const { create } = require("../db/games");
 const router = express.Router();
+const { Games } = require("../db");
 
 // router.get("/:id", (request, response) => {
 //   const { id } = request.params;
@@ -12,24 +13,53 @@ router.get("/:id", (request, response) => {
   response.render("game", { id: gameId });
 });
 
-router.get("/all", (request, response) => {
-  const { id } = request.params;
+// router.post("/waiting_room", async (request, response) => {
+//   const userId = request.session.userId; // Replace with actual user ID retrieval logic
+//   const { gameId } = request.body;
 
-  response.render("game", { id });
+//   console.log(request.session);
+
+//   try {
+//     await Games.addUser(userId, gameId);
+
+//     // Redirect to the game page or waiting lobby
+//     response.redirect(`/game/${gameId}`);
+//   } catch (error) {
+//     console.error("Error joining game:", error);
+//     response.status(500).send("Error joining game");
+//   }
+// });
+
+router.post("/waiting_room", async (request, response) => {
+  console.log("POST waiting_room triggered");
+  // const userId = request.session.user; // Replace with actual user ID retrieval logic
+  const { gameId, userId } = request.body;
+
+  console.log(request.body);
+
+  try {
+    await Games.addUser(userId, gameId);
+
+    // Redirect to the game page or waiting lobby
+    response.redirect(`/game/${gameId}`);
+  } catch (error) {
+    console.error("Error joining game:", error);
+    response.status(500).send("Error joining game");
+  }
 });
 
-router.post("/new_game", (request, response) => {
-  const { maxPlayers, creatorID, password } = request.params; // TODO implement passwords on games
+// initialize game
+router.post("/:id/initialize", async (request, response) => {
+  const gameId = request.params.id;
 
-  // make a new game and set max players
-  // create(42);
-  // set the status to private and add a password if one is set
+  try {
+    const gameState = await Games.initialize(gameId);
 
-  response.render("game", { id });
-});
-
-router.get("/debug", (request, response) => {
-  console.log("debug!!!");
+    response.redirect(`/game/${gameId}`);
+  } catch (error) {
+    console.error("Error initializing game:", error);
+    response.status(500).send("Error initializing game");
+  }
 });
 
 module.exports = router;

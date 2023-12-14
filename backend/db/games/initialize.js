@@ -16,7 +16,7 @@ const initialize = async (gameId) => {
   );
 
   const users = await getUsers(gameId);
-  users.push({ user_id: -1 }); // TODO: add game sid here
+  users.push({ user_id: 0 }); // TODO: add game sid here
 
   const cards = await drawCards(gameId, users.length * 2);
   const dealtCards = await dealCards(users, cards, gameId);

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join Public Game</title>
+  <link rel="stylesheet" href="/styles/pico.css" />
+  <link rel="stylesheet" href="/styles/chat.css" />
+  <link rel="stylesheet" href="/styles/landing.css" />
+</head>
+
+<body>
+  <main>
+    <div class="game-set">
+      <div class="container">
+        <h1>Join Public Game</h1>
+
+        <section id="game-list">
+          <ul>
+            <% availableGames.forEach(game => { %>
+            <li>
+              <a href="/join_game/<%= game.id %>/join"
+                >Join <%= game.id %></a
+              >
+            </li>
+            <% }) %>
+          </ul>
+        </section>
+
+        <h1>Your Current Games</h1>
+        <section id="my-game-list" data-user="<%= user.id %>">
+          <ul>
+            <% if(currentGames !== undefined && currentGames.length > 0) { %>
+            <% currentGames.forEach(game => { %>
+            <li>
+              <a href="/game/<%= game.game_id %>"
+                >Return to <%= game.game_id %></a
+              >
+            </li>
+            <% })} else { %>
+            <p>You are not playing any games yet.</p>
+            <% } %>
+          </ul>
+        </section>
+
+        <!-- <div class="room">
+            <p>Room #1263</p>
+            <p>2/4 Player(s)</p>
+            <button type="submit"><a href="/waiting_room">Join</a></button>
+        </div>
+        <div class="room">
+            <p>Room #1322</p>
+            <p>1/4 Player(s)</p>
+            <button type="submit"><a href="/waiting_room">Join</a></button>
+        </div>
+        <div class="room">
+            <p>Room #6573</p>
+            <p>3/4 Player(s)</p>
+            <button type="submit"><a href="/waiting_room">Join</a></button>
+        </div>
+        <div class="room">
+            <p>Room #4684</p>
+            <p>0/4 Player(s)</p>
+            <button type="submit"><a href="/waiting_room">Join</a></button>
+        </div> -->
+
+        <div class="button-options">
+            <button type="submit"><a href="/">Exit</a></button>
+          </div>
+        
+      </div>
+    </div>
+
+    <div class="chat-set">
+        <form action="/sign_in" method="POST">
+        <nav>
+          <button class="logout">Logout</button>
+        </nav>
+      </form>
+
+      <h2>Lobby Chat</h2>
+      <%- include('chat', { roomId: 0 }) %>
+    </div>
+
+  </main>
+</body>
+
+</html>

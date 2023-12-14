@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Waiting Room</title>
+  <link rel="stylesheet" href="/styles/pico.css" />
+  <link rel="stylesheet" href="/styles/chat.css" /><link rel="stylesheet" href="/styles/landing.css" />
+  <link rel="stylesheet" href="/styles/landing.css" />
+</head>
+
+<body>
+  <main>
+    <div class="game-set">
+      <div class="container">
+        <form method="POST">
+        <p>WELCOME TO</p>
+        <h1>Waiting Room #1263</h1>
+
+        <div id="playerList">
+          <p>----- 3/4 Player(s) -----</p>
+          <p>Player 1: Scott</p>
+          <p>Player 2: Anh</p>
+          <p>Player 3: You</p>
+        </div>
+        
+        <div class="button-options">
+          <button type="submit">START GAME</button>
+          <button type="submit"><a href="/">Exit</a></button>
+        </div>
+      </form>
+      </div>
+    </div>
+
+    <div class="chat-set">
+      <form action="/sign_in" method="POST">
+        <nav>
+          <button class="logout">Logout</button>
+        </nav>
+      </form>
+
+      <h2>Lobby Chat</h2>
+      <%- include('chat', { roomId: 0 }) %>
+    </div>
+
+  </main>
+</body>
+
+</html>

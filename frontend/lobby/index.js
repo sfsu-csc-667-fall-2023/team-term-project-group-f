@@ -21,11 +21,11 @@ socket.on("games:created", ({ id, createdBy }) => {
   li.dataset.gameId = id;
 
   if (createdBy === userId) {
-    a.href = `/games/${id}`;
+    a.href = `/game/${id}`;
     a.innerText = `Return to ${id}`;
     currentGamesList.appendChild(entry);
   } else {
-    a.href = `/games/${id}/join`;
+    a.href = `/game/${id}/join`;
     a.innerText = `Join ${id}`;
     gameList.appendChild(entry);
   }
