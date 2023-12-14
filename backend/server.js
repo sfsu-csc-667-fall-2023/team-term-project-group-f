@@ -109,8 +109,6 @@ app.use("/", authenticationRoutes);
 app.use("/set_newgame", setNewgameRoutes);
 app.use("/join_game", joinGameRoutes);
 app.use("/waiting_room", waitingRoomRoutes);
-app.use("/uno_rules", unoRulesRoutes);
-app.use("/game", gameRoutes);
 
 app.use((_request, _response, next) => {
   next(createError(404));

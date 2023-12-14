@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/", (_request, response) => {
-  response.render("join_game");
+  const name = "ANH";
+  response.render("join_game", { name });
 });
 
 module.exports = router;

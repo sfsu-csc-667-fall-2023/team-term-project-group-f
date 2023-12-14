@@ -85,7 +85,8 @@ const SALT_ROUNDS = 10;
 const { Users } = require("../db");
 
 router.get("/", (req, res) => {
-  res.render("global_lobby.ejs");
+  const id = 5;
+  res.render("global_lobby.ejs", { id });
 });
 
 router.get("/sign_in", (req, res) => {
