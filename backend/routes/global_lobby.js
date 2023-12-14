@@ -1,23 +1,18 @@
-// const express = require("express");
-// const { availableGamesForUser } = require("../db/games");
-// const router = express.Router();
+const express = require("express");
+const { availableGamesForUser } = require("../db/games");
+const router = express.Router();
 
-// router.get("/", async (request, response) => {
-//   try {
-//     const userId = request.session.userId;
+router.get("/", async (request, response) => {
+  try {
+    const userId = request.session.userId;
 
-//     const availableGames = await availableGamesForUser(userId);
+    const availableGames = await availableGamesForUser(userId);
 
-//     response.render("global_lobby", { availableGames });
-//   } catch (error) {
-//     console.error("Error fetching data for global lobby:", error);
-//     response.status(500).send("Error loading global lobby");
-//   }
-// });
+    response.render("global_lobby", { availableGames });
+  } catch (error) {
+    console.error("Error fetching data for global lobby:", error);
+    response.status(500).send("Error loading global lobby");
+  }
+});
 
-// router.get("/", (req, res) => {
-//   const id = 5;
-//   res.render("global_lobby", {id});
-// });
-
-// module.exports = router;
+module.exports = router;

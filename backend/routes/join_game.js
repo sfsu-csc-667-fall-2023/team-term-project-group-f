@@ -2,8 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/", (_request, response) => {
-  const name = "ANH";
-  response.render("join_game", { name });
+  response.render("join_game");
 });
 
 module.exports = router;

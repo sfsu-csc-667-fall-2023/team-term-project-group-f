@@ -29,8 +29,8 @@ router.get("/:id", (request, response) => {
 //   }
 // });
 
-router.post("/join_game", async (request, response) => {
-  console.log("POST join_game triggered");
+router.post("/waiting_room", async (request, response) => {
+  console.log("POST waiting_room triggered");
   // const userId = request.session.user; // Replace with actual user ID retrieval logic
   const { gameId, userId } = request.body;
 
