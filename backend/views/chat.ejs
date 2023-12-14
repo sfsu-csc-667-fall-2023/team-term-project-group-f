@@ -1,24 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <!-- Include necessary scripts and styles -->
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="/js/chat.js"></script>
-</head>
-
-<body>
-  <!-- Chat UI goes here -->
-  <div id="chat-container">
-    <!-- Display chat messages here -->
-    <div id="chat-messages"></div>
-
-    <!-- Input form for sending messages -->
-    <form id="chat-form">
-      <input type="text" id="message-input" autocomplete="off" placeholder="Type your message...">
-      <button type="submit">Send</button>
-    </form>
+<div class="main">
+  <div class="name">
+    <span><i class="far fa-user"></i></span>
+    <div
+      type="text"
+      id="name-input"
+      class="name-input"
+      value="<%= user.username %>"
+      maxlength="20"/></div>
   </div>
-</body>
+  
+  <div class="message-container" id="message-container"></div>
 
-</html>
+  <form class="message-form" id="message-form">
+    <input type="text" name="message" id="message-input" class="message-input" placeholder="Enter Your Message..." />
+  </form>
+</div>
+
+<p class="clients-total" id="client-total">Total clients: 2</p>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.28.0/moment.min.js"
+  integrity="sha512-Q1f3TS3vSt1jQ8AwP2OuenztnLU6LwxgyyYOG1jgMW/cbEMHps/3wjvnl1P3WTrF3chJUWEoxDUEjMxDV8pujg=="
+  crossorigin="anonymous"></script>
+<script src="../routes/chat.js"></script>

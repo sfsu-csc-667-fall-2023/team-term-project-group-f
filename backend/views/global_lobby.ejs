@@ -7,126 +7,7 @@
   <title>Lobby</title>
   <link rel="stylesheet" href="/styles/pico.css" />
   <link rel="stylesheet" href="/styles/chat.css" />
-  <style>
-    main {
-      position: fixed;
-      display: flex;
-      height: 100vh;
-    }
-
-    nav {
-      top: 0;
-      left: 0;
-      width: 40%;
-      height: 6%;
-      padding: 10px;
-      margin-left: auto;
-    }
-
-    
-    /* nav.container {
-      display: flex;
-      justify-content: space-between;
-      background-color: #333;
-      color: white;
-      padding: 10px;
-    } */
-
-    .logout {
-      list-style: none;
-      margin-bottom: 0;
-      padding: 0;
-    }
-
-    .game-set {
-      width: 70%;
-      height: 100%;
-      background: url('./background.jpg') center/cover no-repeat;
-
-      text-align: center;
-    }
-
-    .container {
-      margin-top: 60px;
-      width: 80%;
-      max-width: 500px;
-      background-color: white;
-      padding: 20px;
-      border-radius: 10px;
-      text-align: center;
-
-    }
-
-    .chat-set {
-      position: relative;
-      width: 30%;
-      height: 100%;
-      background-color: black;
-
-      text-align: center;
-      
-    }
-
-    article {
-      width: 90%;
-      height: 65%;
-      overflow-y: auto;
-      margin: 0 20px;
-      padding: 20px;
-    }
-
-    .message-nav {
-      width: 95%;
-      margin: 10px;
-      display: flex;
-      align-items: center;
-    }
-
-    input[name="message"] {
-      width: 800px;
-      flex: 1;
-      margin: 10px;
-    }
-
-    .send-button {
-      width: 40%;
-      max-width: 90px;
-      color: #24333e;
-      margin: 10px;
-      border: none;
-      cursor: pointer;
-    }
-
-    .button-options {
-      width: 80%;
-      max-width: 500px;
-      padding: 20px;
-      border-radius: 10px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      margin: auto;
-    }
-
-    .button-options button {
-      background-color: white;
-      color: black;
-      margin: 10px 0;
-    }
-
-    .avatar-container {
-      margin-top: 20px;
-    }
-
-    .avatar {
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-  </style>
+  <link rel="stylesheet" href="/styles/landing.css" />
 </head>
 
 <body>
@@ -138,8 +19,12 @@
         </div>
 
         <div class="button-options">
-          <p>Hello <%= user.username %>!</p>
-          <button type="submit"><a href="/set_newgame">START NEW GAME</a></button>
+          <% if (user) { %>
+            <p>Welcome <%= user.username %></p>
+         <% } else { %>
+            <p>Welcome guest</p>
+         <% } %>
+          <button type="submit"><a href="/set_newgame">CREATE NEW GAME</a></button>
           <button type="submit"><a href="/join_game">JOIN GAME</a></button>
           <!-- <form action="/join_game" method="POST">
             <button type="submit">JOIN GAME</button>
@@ -153,41 +38,22 @@
       </div>
     </div>
 
-    
-
     <div class="chat-set">
       <form action="/sign_in" method="POST">
-        <nav>
-          <button class="logout">Logout</button>
-        </nav>
-      </form>
-
-      <h2>Lobby Chat</h2>
-      <article>
-        <div class="message me">
-          <img src="https://placehold.co/50x50?text=HA" alt="Avatar" />
-          <p>Hello guys!<br /> How're you guys doing?</p>
-        </div>
-        <div class="message not-me">
-          <img src="https://placehold.co/50x50?text=PP" alt="Avatar" />
-          <p>Hello!!<br /> Oh wait me a second...</p>
-        </div>
-        <div class="message not-me">
-          <img src="https://placehold.co/50x50?text=SM" alt="Avatar" />
-          <p>Hey! I'm good. How many people joining toight?</p>
-        </div>
-        <div class="message not-me">
-          <img src="https://placehold.co/50x50?text=AP" alt="Avatar" />
-          <p>Hi Hoang-Anh, I'm good! <br />How're you doing?</p>
-        </div>
-      </article>
-      
-      <div class="message-nav">
-        <input type="text" name="message" id="message" placeholder="Message..." />
-        <!-- <button type="submit" class="send-button">Send</button> -->
-        <!-- <input type="image" src="./send-button.png" alt="Submit" name="message" /> -->
+      <div>
+        
       </div>
-    </div>
+      <nav>
+        <button class="logout">Logout</button>
+      </nav>
+    </form>
+
+    <h2>Lobby Chat</h2>
+
+    <%- include('chat', { roomId: 0 }) %>
+  </div>
+
+    
 
   </main>
 </body>

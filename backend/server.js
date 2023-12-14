@@ -75,26 +75,41 @@ const sessionMiddleware = session({
   cookie: { secure: process.env.NODE_ENV !== "development" },
 });
 app.use(sessionMiddleware);
+
+const io = new Server(httpServer);
+io.engine.use(sessionMiddleware);
+app.set("io", io);
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(methodOverride("_method"));
-
 if (process.env.NODE_ENV === "development") {
   app.use(viewSessionData);
 }
 
 app.use(sessionLocals);
-const io = new Server(httpServer);
-io.engine.use(sessionMiddleware);
-app.set("io", io);
+// const io = require('socket.io')(httpServer)
+app.use(express.static(path.join(__dirname, "views")));
+app.use("/routes", express.static(path.join(__dirname, "routes")));
+let socketsConected = new Set();
 
-io.on("connection", (socket) => {
-  socket.join(socket.request.session.id);
+io.on("connection", onConnected);
 
-  if (socket.handshake.query !== undefined) {
-    socket.join(socket.handshake.query.id);
-  }
-});
+function onConnected(socket) {
+  console.log("Socket connected", socket.id);
+  socketsConected.add(socket.id);
+  io.emit("clients-total", socketsConected.size);
+
+  socket.on("disconnect", () => {
+    console.log("Socket disconnected", socket.id);
+    socketsConected.delete(socket.id);
+    io.emit("clients-total", socketsConected.size);
+  });
+
+  socket.on("message", (data) => {
+    // console.log(data)
+    socket.broadcast.emit("chat-message", data);
+  });
+}
 
 const authenticationRoutes = require("./routes/authentication");
 // const globalLobbyRoutes = require("./routes/global_lobby");
@@ -103,6 +118,9 @@ const joinGameRoutes = require("./routes/join_game");
 const waitingRoomRoutes = require("./routes/waiting_room");
 const unoRulesRoutes = require("./routes/uno_rules");
 const gameRoutes = require("./routes/game");
+
+// const chatRoutes = require("./routes/chat");
+// app.use("/chat", chatRoutes);
 
 app.use("/", authenticationRoutes);
 // app.use("/lobby", globalLobbyRoutes);
