@@ -8,7 +8,7 @@
 .message-container {
   display: flex;
   flex-direction: column;
-  height: 550px;
+  height: 520px;
   overflow-y: scroll;
   overflow-x: hidden;
 }
@@ -27,6 +27,7 @@
 .message-left {
   border-radius: 20px 20px 20px 0px;
   align-self: flex-start;
+  text-align: left;
   background-color: #fff;
   box-shadow: -2px 2px 4px #dcdcdc;
   margin-right: auto;
@@ -35,6 +36,7 @@
 .message-right {
   border-radius: 20px 20px 0px 20px;
   align-self: flex-end;
+  text-align: right;
   background-color: #2d2d2d;
   box-shadow: 2px 2px 4px #dcdcdc;
   color: #f6f6f6;
