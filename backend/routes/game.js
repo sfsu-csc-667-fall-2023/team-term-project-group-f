@@ -25,6 +25,7 @@ router.get("/:id", async (request, response) => {
 
       response.render("game", {
         id: gameId,
+        user: id,
         gameDetails: gameDetails,
         myCards: myCards,
         currentPlayer: gameUsers.find(
@@ -103,6 +104,7 @@ router.post("/playCard", async (request, response) => {
   try {
     // Check if the card being played is legal
     const lastCard = await Games.getLastCard(gameId); // build last card logic
+    const gameDetails = await Games.getGame(gameId);
     if (suit != lastCard.suit && value != lastCard.value) {
       return response.status(400).send("Invalid card!");
     }
@@ -113,17 +115,24 @@ router.post("/playCard", async (request, response) => {
     //    if card is wild
     //      change color to one provided
     //      trigger +4 draw card if it's a draw four card
+
     // move card to discard
     await Games.dealCards([{ user_id: 0 }], [{ card_id }], gameId);
+
+    // check if game is over
+
     // update last played card in Game
     lastPlayed = Games.setLastCard(gameId, card_id);
-    // next player's turn
-    //Games.setCurrentPlayer(user_id, gameId),
-    const firstPlayer = await Games.getPlayerBySeat(0, gameId).then(
-      ({ user_id }) => Games.setCurrentPlayer(user_id, gameId),
-    );
 
-    response.redirect(`/game/${gameId}`); // back to the game page
+    // next player's turn
+    const index = users.findIndex(
+      (el) => el.user_id == gameDetails.current_seat,
+    );
+    await Games.setCurrentPlayer(
+      users[(index + 1) % users.length].user_id,
+      gameId,
+    ),
+      response.redirect(`/game/${gameId}`); // back to the game page
   } catch (error) {
     console.error("Error drawing a card:", error);
     response.status(500).send("Error drawing a card");

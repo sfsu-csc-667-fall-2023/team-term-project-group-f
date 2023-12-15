@@ -194,7 +194,8 @@
   <main>
     <div class="game-set">
       <div class="play-area">
-        <p>Current turn: <%= currentPlayer.username %></p>
+        <p>Current turn: <%= currentPlayer.username %> - <%= currentPlayer.id %></p>
+        <p>You are <%= user %></p>
         <div class="buttons-container">
           <form action="/game/<%= id %>/draw" method="POST">
             <button type="submit">Draw</button>
@@ -225,7 +226,9 @@
               <input type="hidden" name="card_id" value=<%= card.card_id %>>
           
               <!-- Submit button to trigger the POST request -->
-              <button type="submit">Play Card</button>
+              <% if (currentPlayer.id == user) { %>
+                <button type="submit">Play Card</button>
+                <% } %>
           </form>
           </div>
         <% }) %>
