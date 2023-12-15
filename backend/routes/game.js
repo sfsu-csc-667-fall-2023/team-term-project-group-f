@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const { Games } = require("../db");
 const { getUsers } = require("../db/games/get-users");
+const { getPlayerBySeat } = require("../db/games/get-player-by-seat");
+const { usersInGame } = require("../db/games");
 
 // router.get("/:id", (request, response) => {
 //   const { id } = request.params;
@@ -11,21 +13,27 @@ const { getUsers } = require("../db/games/get-users");
 router.get("/:id", async (request, response) => {
   const gameId = request.params.id;
   const { id } = request.session.user;
+  const gameUsers = await usersInGame(gameId);
 
   try {
     const gameDetails = await Games.getGame(gameId);
-    const myCards = await Games.getCardsForUser(gameId, id);
-    const currentSeat = await Games.getCurrentPlayer(gameId);
-    const users = await Games.usersInGame(gameId);
-    const lastCard = await Games.getLastCard(gameId); // build last card logic
+    if (gameDetails.initialized) {
+      const myCards = await Games.getCardsForUser(gameId, id);
+      const currentSeat = await Games.getCurrentPlayer(gameId);
+      const lastCard = await Games.getLastCard(gameId); // build last card logic
 
-    response.render("game", {
-      id: gameId,
-      gameDetails: gameDetails,
-      myCards: myCards,
-      currentPlayer: currentSeat,
-      lastCard: lastCard,
-    });
+      response.render("game", {
+        id: gameId,
+        gameDetails: gameDetails,
+        myCards: myCards,
+        currentPlayer: gameUsers.find(
+          (el) => el.user_id == currentSeat.current_seat,
+        ),
+        lastCard: lastCard,
+      });
+    } else {
+      response.redirect(`/waiting_room/${gameId}`);
+    }
   } catch (error) {
     console.error("Error loading game:", error);
     response.status(500).send("Error loading game");
@@ -94,7 +102,7 @@ router.post("/playCard", async (request, response) => {
   try {
     // Check if the card being played is legal
     const lastCard = await Games.getLastCard(gameId); // build last card logic
-    if (suit !== lastCard.suit || value !== lastCard.value) {
+    if (suit !== lastCard.suit && value !== lastCard.value) {
       return response.status(400).send("Invalid card!");
     }
 
