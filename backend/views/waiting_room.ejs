@@ -19,11 +19,11 @@
         <h1>Waiting Room #<%= id %></h1>
 
         <div id="playerList">
-          <p>----- 3/4 Player(s) -----</p>
-          <!-- <p>Player 1: Scott</p>
-          <p>Player 2: Anh</p>
-          <p>Player 3: You</p> -->
-        </div>
+          <p>----- <%= playerCount %>/4 Player(s) -----</p>
+          <% players.forEach(player => { %>
+            <p>Player: <%= player.username %></p>
+          <% }) %>
+        </div>        
         
         <div class="button-options">
           <button type="button" onclick="submitForm()">START GAME</button>

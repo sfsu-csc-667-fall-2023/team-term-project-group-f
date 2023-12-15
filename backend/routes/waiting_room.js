@@ -12,9 +12,24 @@ const { Games } = require("../db");
 const router = express.Router();
 
 // GET to display the game setup page
-router.get("/:id", (request, response) => {
-  const { id } = request.params;
-  response.render("waiting_room", { id });
+router.get("/:id", async (request, response) => {
+  const gameId = request.params.id;
+
+  try {
+    const gameDetails = await Games.getGame(gameId); // fetching game details and player list
+    const players = await Games.usersInGame(gameId);
+
+    // render waiting room with game details and player list
+    response.render("waiting_room", {
+      id: gameId,
+      players: players,
+      playerCount: players.length,
+      gameDetails: gameDetails,
+    });
+  } catch (error) {
+    console.error("Error fetching data for waiting room:", error);
+    response.status(500).send("Error loading waiting room");
+  }
 });
 
 // POST to create a new game
