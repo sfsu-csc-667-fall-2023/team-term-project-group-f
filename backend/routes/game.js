@@ -16,14 +16,15 @@ router.get("/:id", async (request, response) => {
     const gameDetails = await Games.getGame(gameId);
     const myCards = await Games.getCardsForUser(gameId, id);
     const currentSeat = await Games.getCurrentPlayer(gameId);
-    const users = await Games.usersInGame(gameId);
+    const currentPlayer = await Games.getPlayerBySeat(currentSeat, gameId);
+
     const lastCard = await Games.getLastCard(gameId); // build last card logic
 
     response.render("game", {
       id: gameId,
       gameDetails: gameDetails,
       myCards: myCards,
-      currentPlayer: currentSeat,
+      currentPlayer: currentPlayer,
       lastCard: lastCard,
     });
   } catch (error) {
@@ -94,7 +95,7 @@ router.post("/playCard", async (request, response) => {
   try {
     // Check if the card being played is legal
     const lastCard = await Games.getLastCard(gameId); // build last card logic
-    if (suit !== lastCard.suit || value !== lastCard.value) {
+    if (suit != lastCard.suit && value != lastCard.value) {
       return response.status(400).send("Invalid card!");
     }
 
@@ -110,6 +111,9 @@ router.post("/playCard", async (request, response) => {
     lastPlayed = Games.setLastCard(gameId, card_id);
     // next player's turn
     //Games.setCurrentPlayer(user_id, gameId),
+    const firstPlayer = await Games.getPlayerBySeat(0, gameId).then(
+      ({ user_id }) => Games.setCurrentPlayer(user_id, gameId),
+    );
 
     response.redirect(`/game/${gameId}`); // back to the game page
   } catch (error) {
