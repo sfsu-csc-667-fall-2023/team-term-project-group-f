@@ -6,6 +6,7 @@ const { setCurrentPlayer } = require("./set-current-player");
 const { drawCards } = require("./draw-cards");
 const { dealCards } = require("./deal-cards");
 const { setInitialized } = require("./set-initialized");
+const { setLastCard } = require("./set-last-card");
 
 const initialize = async (gameId) => {
   const { game_socket_id } = await getGame(gameId);

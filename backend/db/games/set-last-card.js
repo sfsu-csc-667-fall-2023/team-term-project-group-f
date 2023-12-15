@@ -8,6 +8,6 @@ const SET_LAST_PLAYED_CARD = `
 `; // order by card to play last card
 
 const setLastCard = (gameId, cardId) =>
-  db.oneOrNone(SET_LAST_PLAYED_CARD, [gameId]);
+  db.none(SET_LAST_PLAYED_CARD, [cardId, gameId]);
 
 module.exports = { setLastCard };
