@@ -35,7 +35,7 @@ const drawCards = async (gameId, userId, cardCount) => {
         `
         UPDATE game_cards
         SET user_id = $1
-        WHERE id = $2
+        WHERE card_id = $2
       `,
         [userId, card.card_id],
       );
