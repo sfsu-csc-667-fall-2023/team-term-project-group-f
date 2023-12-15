@@ -15,7 +15,7 @@ const create = async (max_players) => {
       "SELECT COUNT(*) FROM games WHERE status != 'finished'",
     );
 
-    if (parseInt(activeGamesCount.count, 10) >= MAX_GAMES) {
+    if (parseInt(activeGamesCount.count, 100) >= MAX_GAMES) {
       // Logic to handle when maximum games are reached
       return { error: "Maximum number of games reached." };
     }

@@ -7,27 +7,14 @@ const { Games } = require("../db");
 //   response.render("game", { id: result.id });
 // });
 
-router.get("/:id", (request, response) => {
+router.get("/:id", async (request, response) => {
   const gameId = request.params.id;
-  response.render("game", { id: gameId });
+  const { id } = request.session.user;
+  const myCards = await Games.getCardsForUser(gameId, id);
+
+  console.log("myCards:", myCards);
+  response.render("game", { id: gameId, myCards });
 });
-
-// router.post("/waiting_room", async (request, response) => {
-//   const userId = request.session.userId; // Replace with actual user ID retrieval logic
-//   const { gameId } = request.body;
-
-//   console.log(request.session);
-
-//   try {
-//     await Games.addUser(userId, gameId);
-
-//     // Redirect to the game page or waiting lobby
-//     response.redirect(`/game/${gameId}`);
-//   } catch (error) {
-//     console.error("Error joining game:", error);
-//     response.status(500).send("Error joining game");
-//   }
-// });
 
 router.post("/waiting_room", async (request, response) => {
   console.log("POST waiting_room triggered");
@@ -50,6 +37,7 @@ router.post("/waiting_room", async (request, response) => {
 // initialize game
 router.post("/:id/initialize", async (request, response) => {
   const gameId = request.params.id;
+  console.log(`Initializing game #${gameId}`);
 
   try {
     const gameState = await Games.initialize(gameId);
