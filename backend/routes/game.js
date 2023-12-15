@@ -17,23 +17,19 @@ router.get("/:id", async (request, response) => {
 
   try {
     const gameDetails = await Games.getGame(gameId);
-    if (gameDetails.initialized) {
-      const myCards = await Games.getCardsForUser(gameId, id);
-      const currentSeat = await Games.getCurrentPlayer(gameId);
-      const lastCard = await Games.getLastCard(gameId); // build last card logic
+    const myCards = await Games.getCardsForUser(gameId, id);
+    const currentSeat = await Games.getCurrentPlayer(gameId);
+    const currentPlayer = await Games.getPlayerBySeat(currentSeat, gameId);
 
-      response.render("game", {
-        id: gameId,
-        gameDetails: gameDetails,
-        myCards: myCards,
-        currentPlayer: gameUsers.find(
-          (el) => el.user_id == currentSeat.current_seat,
-        ),
-        lastCard: lastCard,
-      });
-    } else {
-      response.redirect(`/waiting_room/${gameId}`);
-    }
+    const lastCard = await Games.getLastCard(gameId); // build last card logic
+
+    response.render("game", {
+      id: gameId,
+      gameDetails: gameDetails,
+      myCards: myCards,
+      currentPlayer: currentPlayer,
+      lastCard: lastCard,
+    });
   } catch (error) {
     console.error("Error loading game:", error);
     response.status(500).send("Error loading game");
@@ -102,7 +98,7 @@ router.post("/playCard", async (request, response) => {
   try {
     // Check if the card being played is legal
     const lastCard = await Games.getLastCard(gameId); // build last card logic
-    if (suit !== lastCard.suit && value !== lastCard.value) {
+    if (suit != lastCard.suit && value != lastCard.value) {
       return response.status(400).send("Invalid card!");
     }
 
@@ -118,6 +114,9 @@ router.post("/playCard", async (request, response) => {
     lastPlayed = Games.setLastCard(gameId, card_id);
     // next player's turn
     //Games.setCurrentPlayer(user_id, gameId),
+    const firstPlayer = await Games.getPlayerBySeat(0, gameId).then(
+      ({ user_id }) => Games.setCurrentPlayer(user_id, gameId),
+    );
 
     response.redirect(`/game/${gameId}`); // back to the game page
   } catch (error) {
