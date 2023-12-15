@@ -89,11 +89,14 @@ router.post("/:id/draw", async (request, response) => {
 router.post("/playCard", async (request, response) => {
   const { gameId, suit, value, card_id } = request.body;
   const userId = request.session.user.id;
+  const users = await getUsers(gameId);
 
   try {
     // Check if the card being played is legal
-
-    lastPlayed = Games.setLastCard(gameId, card_id);
+    const lastCard = await Games.getLastCard(gameId); // build last card logic
+    if (suit !== lastCard.suit || value !== lastCard.value) {
+      return response.status(400).send("Invalid card!");
+    }
 
     // trigger logic for card
     //    if card is skip or draw 2 find the next player
@@ -102,8 +105,11 @@ router.post("/playCard", async (request, response) => {
     //      change color to one provided
     //      trigger +4 draw card if it's a draw four card
     // move card to discard
+    await Games.dealCards([{ user_id: 0 }], [{ card_id }], gameId);
     // update last played card in Game
+    lastPlayed = Games.setLastCard(gameId, card_id);
     // next player's turn
+    //Games.setCurrentPlayer(user_id, gameId),
 
     response.redirect(`/game/${gameId}`); // back to the game page
   } catch (error) {
