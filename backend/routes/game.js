@@ -10,10 +10,24 @@ const { Games } = require("../db");
 router.get("/:id", async (request, response) => {
   const gameId = request.params.id;
   const { id } = request.session.user;
-  const myCards = await Games.getCardsForUser(gameId, id);
 
-  console.log("myCards:", myCards);
-  response.render("game", { id: gameId, myCards });
+  try {
+    const gameDetails = await Games.getGame(gameId);
+    const myCards = await Games.getCardsForUser(id, gameId);
+    const currentPlayer = await Games.getCurrentPlayer(gameId);
+    const lastCard = await Games.getLastCard(gameId); // build last card logic
+
+    response.render("game", {
+      id: gameId,
+      gameDetails: gameDetails,
+      myCards: myCards,
+      currentPlayer: currentPlayer,
+      lastCard: lastCard,
+    });
+  } catch (error) {
+    console.error("Error loading game:", error);
+    response.status(500).send("Error loading game");
+  }
 });
 
 router.post("/waiting_room", async (request, response) => {

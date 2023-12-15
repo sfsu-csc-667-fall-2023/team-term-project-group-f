@@ -184,7 +184,7 @@
   <main>
     <div class="game-set">
       <div class="play-area">
-        <p>Current turn: Scott</p>
+        <p>Current turn: <%= currentPlayer.username %></p>
         <div class="buttons-container">
           <button>Draw</button>
           <button>Skip</button>
@@ -193,10 +193,17 @@
       </div>
 
       <div class="centered-image">
-        <img src="../current-card.png" alt="Centered Image">
-      </div>
+        <% if (lastCard) { %>
+          <img src="<%= lastPlayedCard.imagePath %>" alt="Last Played Card">
+        <% } else { %>
+          <p>No cards played yet.</p>
+        <% } %>
+      </div>               <!-- replace imagepath with original path, created a condition to check if first card is played or not -->
 
       <div class="my-area">
+        <% myCards.forEach(card => { %>
+          <img src="<%= card.imagePath %>" alt="Card" class="mycard-button" />
+        <% }) %>
         <!-- <img src="../red-0.png" alt="Button 1" class="mycard-button" />
         <img src="../green-null.png" alt="Button 2" class="mycard-button" />
         <img src="../yellow-reverse.png" alt="Button 3" class="mycard-button" />
