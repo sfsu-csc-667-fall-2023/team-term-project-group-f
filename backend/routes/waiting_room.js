@@ -12,8 +12,9 @@ const { Games } = require("../db");
 const router = express.Router();
 
 // GET to display the game setup page
-router.get("/", (_request, response) => {
-  response.render("waiting_room");
+router.get("/:id", (request, response) => {
+  const { id } = request.params;
+  response.render("waiting_room", { id });
 });
 
 // POST to create a new game
