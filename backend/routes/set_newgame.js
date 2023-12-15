@@ -11,9 +11,11 @@ router.get("/", (request, response) => {
 router.post("/", async (request, response) => {
   console.log("POST set_newgame triggered!");
   const { playerCount } = request.body; // data from set_newgame.ejs form
+  const { id } = request.session.user;
 
   try {
     const result = await Games.create(playerCount);
+    await Games.addUser(id, result.id);
 
     console.log(result);
     if (result.error) {
