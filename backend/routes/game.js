@@ -63,4 +63,19 @@ router.post("/:id/initialize", async (request, response) => {
   }
 });
 
+// POST for drawing cards
+router.post("/:id/draw", async (request, response) => {
+  const gameId = request.params.id;
+  const { id } = request.session.user;
+
+  try {
+    await Games.drawCards(gameId, id, 1); // logic to draw a card from the deck
+
+    response.redirect(`/game/${gameId}`); // back to the game page
+  } catch (error) {
+    console.error("Error drawing a card:", error);
+    response.status(500).send("Error drawing a card");
+  }
+});
+
 module.exports = router;

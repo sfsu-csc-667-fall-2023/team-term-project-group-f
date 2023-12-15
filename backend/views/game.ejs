@@ -196,7 +196,9 @@
       <div class="play-area">
         <p>Current turn: <%= currentPlayer.username %></p>
         <div class="buttons-container">
-          <button>Draw</button>
+          <form action="/game/<%= id %>/draw" method="POST">
+            <button type="submit">Draw</button>
+          </form>
           <button>Skip</button>
           <button>Say Uno !!!</button>
         </div>
