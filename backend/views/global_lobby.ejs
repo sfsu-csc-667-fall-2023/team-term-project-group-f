@@ -24,7 +24,7 @@
          <% } else { %>
             <p>Welcome guest</p>
          <% } %>
-          <button type="submit"><a href="/set_newgame">CREATE NEW GAME</a></button>
+          <button type="submit"><a href="/set_newgame">START NEW GAME</a></button>
           <button type="submit"><a href="/join_game">JOIN GAME</a></button>
           <!-- <form action="/join_game" method="POST">
             <button type="submit">JOIN GAME</button>
@@ -49,6 +49,7 @@
     </form>
 
     <h2>Lobby Chat</h2>
+    <p>Current User: <%= user.username %></p>
 
     <%- include('chat', { roomId: 0 }) %>
   </div>

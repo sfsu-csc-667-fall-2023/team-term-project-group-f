@@ -11,9 +11,10 @@ router.get("/:id", async (request, response) => {
   const gameId = request.params.id;
   const { id } = request.session.user;
   const myCards = await Games.getCardsForUser(gameId, id);
+  const currentPlayerId = await Games.isCurrentPlayer(gameId, id);
 
   console.log("myCards:", myCards);
-  response.render("game", { id: gameId, myCards });
+  response.render("game", { id: gameId, myCards, currentPlayerId });
 });
 
 router.post("/waiting_room", async (request, response) => {
@@ -46,6 +47,21 @@ router.post("/:id/initialize", async (request, response) => {
   } catch (error) {
     console.error("Error initializing game:", error);
     response.status(500).send("Error initializing game");
+  }
+});
+
+// finishing the game
+router.post("/:id/finish", async (request, response) => {
+  const gameId = request.params.id;
+  console.log(`Finishing game #${gameId}`);
+
+  try {
+    const winnerName = "Player Name";
+
+    openPopup(winnerName);
+  } catch (error) {
+    console.error("Error finishing game:", error);
+    response.status(500).send("Error finishing game");
   }
 });
 

@@ -15,7 +15,7 @@
   <main>
     <div class="game-set">
       <div class="play-area">
-        <p>Current turn: Scott</p>
+        <p>Current turn: <%= currentPlayerId ? 'Your Turn' : 'Waiting...' %></p>
         <div class="buttons-container">
           <button>Draw</button>
           <button>Skip</button>
@@ -33,6 +33,25 @@
         <img src="../yellow-reverse.png" alt="Button 3" class="mycard-button" />
         <img src="../yellow-3.png" alt="Button 4" class="mycard-button" /> -->
       </div>
+
+      <div id="winPopup" class="popup">
+        <div class="popup-content">
+          <h2>Game Over</h2>
+          <p>The winner: Anh</p>
+          <button class="close-popup" onclick="closePopup()">Close</button>
+        </div>
+      </div>
+
+      <script>
+        function openPopup(winnerName) {
+          document.getElementById("winnerName").innerText = winnerName;
+          document.getElementById("winPopup").style.display = "flex";
+        }
+        function closePopup() {
+          document.getElementById("winPopup").style.display = "none";
+        }
+      </script>
+      
     </div>
 
     <div class="chat-set">
@@ -46,6 +65,7 @@
       <h2>Game <%= id %></h2>
       <%- include('chat', { roomId: 0 }) %>
     </div>
+    
 
   </main>
 </body>
