@@ -23,7 +23,7 @@ router.get("/:id", async (request, response) => {
       id: gameId,
       gameDetails: gameDetails,
       myCards: myCards,
-      currentPlayer: users.find((el) => el.seat == currentSeat),
+      currentPlayer: currentSeat,
       lastCard: lastCard,
     });
   } catch (error) {
