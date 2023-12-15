@@ -16,11 +16,14 @@ const initialize = async (gameId) => {
   );
 
   const users = await getUsers(gameId);
-  users.push({ user_id: 0 }); // TODO: add game sid here
+  // users.push({ user_id: 0 }); // TODO: add game sid here
 
-  const cards = await drawCards(gameId, users.length * 2);
+  const cards = await drawCards(gameId, users.length * 7);
   const dealtCards = await dealCards(users, cards, gameId);
   console.log({ dealtCards });
+
+  let lastPlayed = await drawCards(gameId, 1);
+  lastPlayed = setLastCard(gameId, lastPlayed[0].card_id);
 
   users.forEach((user) => {
     console.log({ user });

@@ -18,6 +18,7 @@ const { getCardsForUser } = require("./games/get-cards-for-user");
 const { setCurrentPlayer } = require("./games/set-current-player");
 const { getCurrentPlayer } = require("./games/get-current-player");
 const { getLastCard } = require("./games/get-last-card");
+const { setLastCard } = require("./games/set-last-card");
 
 module.exports = {
   create,
@@ -40,4 +41,5 @@ module.exports = {
   setCurrentPlayer,
   getCurrentPlayer,
   getLastCard,
+  setLastCard,
 };

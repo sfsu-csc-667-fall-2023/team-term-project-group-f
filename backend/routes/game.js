@@ -87,11 +87,25 @@ router.post("/:id/draw", async (request, response) => {
 });
 
 router.post("/playCard", async (request, response) => {
-  const { gameId, suit, value } = request.body;
+  const { gameId, suit, value, card_id } = request.body;
   const userId = request.session.user.id;
 
   try {
-    response.redirect(`/game/${24}`); // back to the game page
+    // Check if the card being played is legal
+
+    lastPlayed = Games.setLastCard(gameId, card_id);
+
+    // trigger logic for card
+    //    if card is skip or draw 2 find the next player
+    //      provide next player with a chance to play the same card
+    //    if card is wild
+    //      change color to one provided
+    //      trigger +4 draw card if it's a draw four card
+    // move card to discard
+    // update last played card in Game
+    // next player's turn
+
+    response.redirect(`/game/${gameId}`); // back to the game page
   } catch (error) {
     console.error("Error drawing a card:", error);
     response.status(500).send("Error drawing a card");
