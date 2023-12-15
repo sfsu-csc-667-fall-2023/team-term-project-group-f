@@ -17,19 +17,24 @@ router.get("/:id", async (request, response) => {
 
   try {
     const gameDetails = await Games.getGame(gameId);
-    const myCards = await Games.getCardsForUser(gameId, id);
-    const currentSeat = await Games.getCurrentPlayer(gameId);
-    const currentPlayer = await Games.getPlayerBySeat(currentSeat, gameId);
 
-    const lastCard = await Games.getLastCard(gameId); // build last card logic
+    if (gameDetails.initialized) {
+      const myCards = await Games.getCardsForUser(gameId, id);
+      const currentSeat = await Games.getCurrentPlayer(gameId);
+      const lastCard = await Games.getLastCard(gameId); // build last card logic
 
-    response.render("game", {
-      id: gameId,
-      gameDetails: gameDetails,
-      myCards: myCards,
-      currentPlayer: currentPlayer,
-      lastCard: lastCard,
-    });
+      response.render("game", {
+        id: gameId,
+        gameDetails: gameDetails,
+        myCards: myCards,
+        currentPlayer: gameUsers.find(
+          (el) => el.user_id == currentSeat.current_seat,
+        ),
+        lastCard: lastCard,
+      });
+    } else {
+      response.redirect(`/waiting_room/${gameId}`);
+    }
   } catch (error) {
     console.error("Error loading game:", error);
     response.status(500).send("Error loading game");
