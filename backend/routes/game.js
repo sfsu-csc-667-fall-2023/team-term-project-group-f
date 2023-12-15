@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { Games } = require("../db");
+const { getUsers } = require("../db/games/get-users");
 
 // router.get("/:id", (request, response) => {
 //   const { id } = request.params;
@@ -13,7 +14,7 @@ router.get("/:id", async (request, response) => {
 
   try {
     const gameDetails = await Games.getGame(gameId);
-    const myCards = await Games.getCardsForUser(id, gameId);
+    const myCards = await Games.getCardsForUser(gameId, id);
     const currentPlayer = await Games.getCurrentPlayer(gameId);
     const lastCard = await Games.getLastCard(gameId); // build last card logic
 
@@ -69,7 +70,13 @@ router.post("/:id/draw", async (request, response) => {
   const userId = request.session.user.id;
 
   try {
-    await Games.drawCards(gameId, userId, 1); // logic to draw a card from the deck
+    const users = await getUsers(gameId);
+    const cards = await Games.drawCards(gameId, 1); // logic to draw a card from the deck
+    const dealtCards = await Games.dealCards(
+      [users.find((el) => el.user_id == userId)],
+      cards,
+      gameId,
+    );
 
     response.redirect(`/game/${gameId}`); // back to the game page
   } catch (error) {

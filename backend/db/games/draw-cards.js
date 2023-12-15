@@ -16,7 +16,7 @@ const database = require("../connection");
 const { connection: db } = database;
 
 // drawing a specified number of cards from the deck
-const drawCards = async (gameId, userId, cardCount) => {
+const drawCards = async (gameId, cardCount) => {
   // Select the top card from deck
   const cardsToDraw = await db.manyOrNone(
     `
@@ -29,20 +29,20 @@ const drawCards = async (gameId, userId, cardCount) => {
   );
 
   //update user_id of the drawn card to player's id
-  if (cardsToDraw.length > 0) {
-    const updateQueries = cardsToDraw.map((card) => {
-      return db.none(
-        `
-        UPDATE game_cards
-        SET user_id = $1
-        WHERE card_id = $2
-      `,
-        [userId, card.card_id],
-      );
-    });
+  // if (cardsToDraw.length > 0) {
+  //   const updateQueries = cardsToDraw.map((card) => {
+  //     return db.none(
+  //       `
+  //       UPDATE game_cards
+  //       SET user_id = $1
+  //       WHERE card_id = $2
+  //     `,
+  //       [userId, card.card_id],
+  //     );
+  //   });
 
-    await Promise.all(updateQueries); // update multiple cards in parallel
-  }
+  //   await Promise.all(updateQueries); // update multiple cards in parallel
+  //}
 
   return cardsToDraw;
 };
