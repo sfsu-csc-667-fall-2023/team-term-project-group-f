@@ -14,19 +14,19 @@
   <main>
     <div class="game-set">
       <div class="container">
-        <form method="POST">
+        <form id="initialize" method="POST" action="/game/<%= id %>/initialize">
         <p>WELCOME TO</p>
-        <h1>Waiting Room #1263</h1>
+        <h1>Waiting Room #<%= id %></h1>
 
         <div id="playerList">
-          <p>----- 3/4 Player(s) -----</p>
-          <p>Player 1: Scott</p>
-          <p>Player 2: Anh</p>
-          <p>Player 3: You</p>
-        </div>
+          <p>----- <%= playerCount %>/4 Player(s) -----</p>
+          <% players.forEach(player => { %>
+            <p>Player: <%= player.username %></p>
+          <% }) %>
+        </div>        
         
         <div class="button-options">
-          <button type="submit">START GAME</button>
+          <button type="button" onclick="submitForm()">START GAME</button>
           <button type="submit"><a href="/">Exit</a></button>
         </div>
       </form>
@@ -43,6 +43,21 @@
       <h2>Lobby Chat</h2>
       <%- include('chat', { roomId: 0 }) %>
     </div>
+
+    <script>
+      function submitForm() {
+        // Get the form element by ID
+        var form = document.getElementById("initialize");
+    
+        // Submit the form
+        form.submit();
+      }
+    
+      function exit() {
+        // Redirect to the specified URL ("/") or perform any other action
+        window.location.href = "/";
+      }
+    </script>
 
   </main>
 </body>

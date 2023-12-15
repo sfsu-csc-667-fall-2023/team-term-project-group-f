@@ -16,7 +16,34 @@
       <div class="container">
         <h1>Join Public Game</h1>
 
-        <div class="room">
+        <section id="game-list">
+          <ul>
+            <% availableGames.forEach(game => { %>
+            <li>
+              <a href="/join_game/<%= game.id %>/join"
+                >Join <%= game.id %></a
+              >
+            </li>
+            <% }) %>
+          </ul>
+        </section>
+
+        <h1>Your Current Games</h1>
+        <section id="my-game-list" data-user="<%= user.id %>">
+          <ul>
+            <% if(currentGames !== undefined && currentGames.length > 0) { %>
+            <% currentGames.forEach(game => { %>
+            <li>
+              <a href="/game/<%= game.game_id %>"
+                >Return to <%= game.game_id %></a>
+            </li>
+            <% })} else { %>
+            <p>You are not playing any games yet.</p>
+            <% } %>
+          </ul>
+        </section>
+
+        <!-- <div class="room">
             <p>Room #1263</p>
             <p>2/4 Player(s)</p>
             <button type="submit"><a href="/waiting_room">Join</a></button>
@@ -35,7 +62,7 @@
             <p>Room #4684</p>
             <p>0/4 Player(s)</p>
             <button type="submit"><a href="/waiting_room">Join</a></button>
-        </div>
+        </div> -->
 
         <div class="button-options">
             <button type="submit"><a href="/">Exit</a></button>

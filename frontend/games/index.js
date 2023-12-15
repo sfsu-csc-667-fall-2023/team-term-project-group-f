@@ -9,7 +9,7 @@ gameSocketConfig(gameSocketId)
   .then((_) => userSocketConfig(userSocketId))
   .then((_) => {
     console.log("Fetching");
-    fetch(`/games/${roomId}/ready`, { method: "post" });
+    fetch(`/game/${roomId}/ready`, { method: "post" });
   });
 
 const hitForm = document.querySelector("#hit-form");
