@@ -15,14 +15,15 @@ router.get("/:id", async (request, response) => {
   try {
     const gameDetails = await Games.getGame(gameId);
     const myCards = await Games.getCardsForUser(gameId, id);
-    const currentPlayer = await Games.getCurrentPlayer(gameId);
+    const currentSeat = await Games.getCurrentPlayer(gameId);
+    const users = await Games.usersInGame(gameId);
     const lastCard = await Games.getLastCard(gameId); // build last card logic
 
     response.render("game", {
       id: gameId,
       gameDetails: gameDetails,
       myCards: myCards,
-      currentPlayer: currentPlayer,
+      currentPlayer: users.find((el) => el.seat == currentSeat),
       lastCard: lastCard,
     });
   } catch (error) {
@@ -79,6 +80,18 @@ router.post("/:id/draw", async (request, response) => {
     );
 
     response.redirect(`/game/${gameId}`); // back to the game page
+  } catch (error) {
+    console.error("Error drawing a card:", error);
+    response.status(500).send("Error drawing a card");
+  }
+});
+
+router.post("/playCard", async (request, response) => {
+  const { gameId, suit, value } = request.body;
+  const userId = request.session.user.id;
+
+  try {
+    response.redirect(`/game/${24}`); // back to the game page
   } catch (error) {
     console.error("Error drawing a card:", error);
     response.status(500).send("Error drawing a card");
