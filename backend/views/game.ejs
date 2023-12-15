@@ -218,6 +218,13 @@
           <!-- <img src="<%= card.imagePath %>" alt="Card" class="mycard-button" />  implement when card images are ready-->
           <div class="card">
             <%= card.suit %> - <%= card.value %>
+            <form action="/games/playCard" method="post">
+              <input type="hidden" name="suit" value=card.suit>
+              <input type="hidden" name="value" value=card.value>
+          
+              <!-- Submit button to trigger the POST request -->
+              <button type="submit">Play Card</button>
+          </form>
           </div>
         <% }) %>
         <!-- <img src="../red-0.png" alt="Button 1" class="mycard-button" />
@@ -238,8 +245,16 @@
       <h2>Game <%= id %></h2>
       <%- include('chat', { roomId: 0 }) %>
     </div>
+    <script>
+      function exit() {
+        // Redirect to the specified URL ("/") or perform any other action
+        window.location.href = "/";
+      }      
+    </script>
+
 
   </main>
+  
 </body>
 
 </html>
