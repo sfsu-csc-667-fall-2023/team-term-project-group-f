@@ -1,9 +1,11 @@
 const express = require("express");
+const { create } = require("../db/games");
 const router = express.Router();
 const { Games } = require("../db");
 const { getUsers } = require("../db/games/get-users");
 const { getPlayerBySeat } = require("../db/games/get-player-by-seat");
 const { usersInGame } = require("../db/games");
+
 
 // router.get("/:id", (request, response) => {
 //   const { id } = request.params;
@@ -141,6 +143,55 @@ router.post("/playCard", async (request, response) => {
   } catch (error) {
     console.error("Error drawing a card:", error);
     response.status(500).send("Error drawing a card");
+  }
+});
+
+// router.post("/waiting_room", async (request, response) => {
+//   const userId = request.session.userId; // Replace with actual user ID retrieval logic
+//   const { gameId } = request.body;
+
+//   console.log(request.session);
+
+//   try {
+//     await Games.addUser(userId, gameId);
+
+//     // Redirect to the game page or waiting lobby
+//     response.redirect(`/game/${gameId}`);
+//   } catch (error) {
+//     console.error("Error joining game:", error);
+//     response.status(500).send("Error joining game");
+//   }
+// });
+
+router.post("/waiting_room", async (request, response) => {
+  console.log("POST waiting_room triggered");
+  // const userId = request.session.user; // Replace with actual user ID retrieval logic
+  const { gameId, userId } = request.body;
+
+  console.log(request.body);
+
+  try {
+    await Games.addUser(userId, gameId);
+
+    // Redirect to the game page or waiting lobby
+    response.redirect(`/game/${gameId}`);
+  } catch (error) {
+    console.error("Error joining game:", error);
+    response.status(500).send("Error joining game");
+  }
+});
+
+// initialize game
+router.post("/:id/initialize", async (request, response) => {
+  const gameId = request.params.id;
+
+  try {
+    const gameState = await Games.initialize(gameId);
+
+    response.redirect(`/game/${gameId}`);
+  } catch (error) {
+    console.error("Error initializing game:", error);
+    response.status(500).send("Error initializing game");
   }
 });
 

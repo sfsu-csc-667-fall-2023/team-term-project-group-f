@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const path = require("path");
 
 const express = require("express");
@@ -33,11 +35,7 @@ const httpServer = createServer(app);
 
 app.use(morgan("dev"));
 app.use(bodyParser.json());
-app.use(
-  bodyParser.urlencoded({
-    extended: true,
-  }),
-);
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(flash());
@@ -49,8 +47,6 @@ app.use(express.static(path.join(__dirname, "static")));
 const PORT = process.env.PORT || 3000;
 
 if (process.env.NODE_ENV === "development") {
-  require("dotenv").config();
-
   const livereload = require("livereload");
   const connectLiveReload = require("connect-livereload");
 
@@ -132,6 +128,12 @@ app.use("/game", gameRoutes);
 
 app.use((_request, _response, next) => {
   next(createError(404));
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send("Something went wrong!");
 });
 
 httpServer.listen(PORT, () => {
