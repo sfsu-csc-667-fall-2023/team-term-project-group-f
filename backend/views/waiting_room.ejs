@@ -6,7 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Waiting Room</title>
   <link rel="stylesheet" href="/styles/pico.css" />
-  <link rel="stylesheet" href="/styles/chat.css" /><link rel="stylesheet" href="/styles/landing.css" />
+  <link rel="stylesheet" href="/styles/chat.css" />
+  <link rel="stylesheet" href="/styles/landing.css" />
   <link rel="stylesheet" href="/styles/landing.css" />
 </head>
 
@@ -15,22 +16,24 @@
     <div class="game-set">
       <div class="container">
         <form id="initialize" method="POST" action="/game/<%= id %>/initialize">
-        <p>WELCOME TO</p>
-        <h1>Waiting Room #<%= id %></h1>
+          <p>WELCOME TO</p>
+          <h1>Waiting Room #<%= id %>
+          </h1>
 
-        <div id="playerList">
-          <p>----- <%= playerCount %>/4 Player(s) -----</p>
-          <% players.forEach(player => { %>
-            <p>Player: <%= player.username %></p>
-          <% }) %>
-        </div>        
-        
-        <div class="button-options">
-          <button type="button" onclick="submitForm()">START GAME</button>
-        </div>
-      </form>
-      
-      <button type="submit"><a href="/">Exit</a></button>
+          <div id="playerList">
+            <p>----- <%= playerCount %>/4 Player(s) -----</p>
+            <% players.forEach(player=> { %>
+              <p>Player: <%= player.username %>
+              </p>
+              <% }) %>
+          </div>
+
+          <div class="button-options">
+            <button type="button" onclick="submitForm()">START GAME</button>
+            <button type="submit"><a href="/">Exit</a></button>
+          </div>
+        </form>
+
 
       </div>
     </div>
@@ -50,11 +53,9 @@
       function submitForm() {
         // Get the form element by ID
         var form = document.getElementById("initialize");
-    
         // Submit the form
         form.submit();
       }
-    
       function exit() {
         // Redirect to the specified URL ("/") or perform any other action
         window.location.href = "/";

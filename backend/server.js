@@ -112,7 +112,6 @@ const authenticationRoutes = require("./routes/authentication");
 const setNewgameRoutes = require("./routes/set_newgame");
 const joinGameRoutes = require("./routes/join_game");
 const waitingRoomRoutes = require("./routes/waiting_room");
-const unoRulesRoutes = require("./routes/uno_rules");
 const gameRoutes = require("./routes/game");
 
 // const chatRoutes = require("./routes/chat");
@@ -123,7 +122,6 @@ app.use("/", authenticationRoutes);
 app.use("/set_newgame", setNewgameRoutes);
 app.use("/join_game", joinGameRoutes);
 app.use("/waiting_room", waitingRoomRoutes);
-app.use("/uno_rules", unoRulesRoutes);
 app.use("/game", gameRoutes);
 
 app.use((_request, _response, next) => {

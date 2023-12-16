@@ -4,7 +4,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Game <%= id %></title>
+  <title>Game <%= id %>
+  </title>
   <link rel="stylesheet" href="/styles/pico.css" />
   <link rel="stylesheet" href="/styles/chat.css" />
   <!-- <link rel="stylesheet" href="/styles/landing.css" /> -->
@@ -17,9 +18,12 @@
   <main>
     <div class="game-set">
       <div class="play-area">
-        <p>Status:: <%= gameDetails?.status %></p>
-        <p>Current turn: <%= currentPlayer.username %> - <%= currentPlayer.id %></p>
-        <p>You are <%= user %></p>
+        <p>Status:: <%= gameDetails?.status %>
+        </p>
+        <p>Current turn: <%= currentPlayer.username %> - <%= currentPlayer.id %>
+        </p>
+        <p>You are <%= user %>
+        </p>
         <div class="buttons-container">
           <form action="/game/<%= id %>/draw" method="POST">
             <button class="uno-button" type="submit">Draw</button>
@@ -34,43 +38,44 @@
 
       </div>
 
-        <% if (currentPlayer.id == user) { %>
-          <h4>It's your turn!</h4>
+      <% if (currentPlayer.id==user) { %>
+        <h4>It's your turn!</h4>
         <% } %>
-      <div class="my-area">
+          <div class="my-area">
 
-        <% myCards.forEach((card, index) => { %>
-          <form id="playCardForm<%=index%>" action="/game/playCard" method="post">
-            <input type="hidden" name="suit" value="<%= card.suit %>">
-            <input type="hidden" name="value" value="<%= card.value %>">
-            <input type="hidden" name="gameId" value="<%= id %>">
-            <input type="hidden" name="card_id" value="<%= card.card_id %>">
-            
-            <div onClick="playCard(<%=index%>)" class="<%= card.suit %>-<%= card.value %>">
+            <% myCards.forEach((card, index)=> { %>
+              <form id="playCardForm<%=index%>" action="/game/playCard" method="post">
+                <input type="hidden" name="suit" value="<%= card.suit %>">
+                <input type="hidden" name="value" value="<%= card.value %>">
+                <input type="hidden" name="gameId" value="<%= id %>">
+                <input type="hidden" name="card_id" value="<%= card.card_id %>">
+
+                <div onClick="playCard(<%=index%>)" class="<%= card.suit %>-<%= card.value %>">
+                </div>
+              </form>
+              <% }) %>
+          </div>
+
+
+          <div id="winPopup" class="popup">
+            <div class="popup-content">
+              <h2>Game Over</h2>
+              <p>The winner: Anh</p>
+              <button class="close-popup" onclick="closePopup()">Close</button>
             </div>
-          </form>
-        <% }) %>   
-      </div>
-      
-
-      <div id="winPopup" class="popup">
-        <div class="popup-content">
-          <h2>Game Over</h2>
-          <p>The winner: Anh</p>
-          <button class="close-popup" onclick="closePopup()">Close</button>
-        </div>
-      </div>      
+          </div>
     </div>
 
     <div class="chat-set">
       <nav>
         <div class="exit-button"><a href="/">Exit Game</a></div>
         <form action="/sign_in" method="POST">
-            <button class="logout">Logout</button>
+          <button class="logout">Logout</button>
         </form>
       </nav>
 
-      <h2>Game <%= id %></h2>
+      <h2>Game <%= id %>
+      </h2>
       <%- include('chat', { roomId: 0 }) %>
     </div>
 
@@ -78,15 +83,15 @@
       function exit() {
         // Redirect to the specified URL ("/") or perform any other action
         window.location.href = "/";
-      } 
+      }
       function playCard(index) {
         console.log("hi")
-        var form = document.getElementById(`playCardForm${index}`);    
+        var form = document.getElementById(`playCardForm${index}`);
         // Submit the form
         form.submit();
       } 
     </script>
-    
+
     <script>
       function openPopup(winnerName) {
         document.getElementById("winnerName").innerText = winnerName;
@@ -98,7 +103,5 @@
     </script>
 
   </main>
-  
 </body>
-
 </html>

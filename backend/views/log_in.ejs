@@ -6,97 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Log In</title>
   <link rel="stylesheet" href="/styles/pico.css" />
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background: url('../images/background.jpg') center/cover no-repeat;
-      font-family: Arial, sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-    }
-
-    h1 {
-      color: black;
-    }
-
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background-color: white;
-      padding: 10px;
-      text-align: center;
-      z-index: 1000;
-    }
-
-    nav ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    nav ul li {
-      display: inline-block;
-      margin-right: 10px;
-    }
-
-    main.container {
-      width: 50%;
-      max-width: 400px;
-      background-color: white;
-      padding: 25px;
-      border-radius: 10px;
-      text-align: center;
-    }
-
-    form {
-      margin-top: 20px;
-      color: black;
-    }
-
-    input {
-      background-color: whitesmoke;
-    }
-
-    .avatar-container {
-      margin-top: 20px;
-    }
-
-    .avatar {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    .button-options {
-      border: none;
-      cursor: pointer;
-      border-radius: 5px;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    button[name="signup"] {
-      width: 50%;
-      background-color: white;
-      color: white;
-    }
-
-    button[name="login"] {
-      width: 45%;
-      background-color: rgb(255, 182, 46);
-      text-decoration: none;
-    }
-
-    button[name="login"] a {
-      color: white;
-    }
-  </style>
+  <link rel="stylesheet" href="/styles/login.css" />
 </head>
 
 <body>
@@ -109,20 +19,22 @@
     <form method="POST" action="/sign_in">
       <% if (messages.error) { %>
         <div class="alert alert-danger">
-          <strong><%= messages.error %> </strong>
+          <strong>
+            <%= messages.error %>
+          </strong>
         </div>
-      <% } %> 
-      <label for="email">
-        <input type="email" name="email" id="email" placeholder="Email" />
-      </label>
-      <label for="password">
-        <input type="password" name="password" id="password" placeholder="Password" />
-      </label>
+        <% } %>
+          <label for="email">
+            <input type="email" name="email" id="email" placeholder="Email" />
+          </label>
+          <label for="password">
+            <input type="password" name="password" id="password" placeholder="Password" />
+          </label>
 
-      <div class="button-options">
-        <button type="submit" name="signup"><a href="/sign_up">Create an account</a></button>
-        <button type="submit" name="login">Login</button>
-      </div>
+          <div class="button-options">
+            <button type="submit" name="signup1"><a href="/sign_up">Create an account</a></button>
+            <button type="submit" name="login1">Login</button>
+          </div>
     </form>
   </main>
 </body>

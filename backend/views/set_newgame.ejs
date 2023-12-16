@@ -17,7 +17,7 @@
         <div class="avatar-container">
           <img src="../images/set-newgame-avt.gif" alt="Avatar" class="avatar">
         </div>
-        <form id="newGameForm" method="POST">  <!-- POST to set_newgame route  -->
+        <form id="newGameForm" method="POST">
           <div class="select-container">
             <div class="num-select">
               <select name="playerCount" id="playerCount" required>
@@ -64,11 +64,10 @@
       function submitForm() {
         // Get the form element by ID
         var form = document.getElementById("newGameForm");
-    
         // Submit the form
         form.submit();
       }
-    
+
       function exit() {
         // Redirect to the specified URL ("/") or perform any other action
         window.location.href = "/";
