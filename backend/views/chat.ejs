@@ -5,8 +5,9 @@
       type="text"
       id="name-input"
       class="name-input"
-      value="<%= user.username %>"
-      maxlength="20"/></div>
+      value="<%= user ? user.username : 'Guest' %>"
+      maxlength="20"></div>
+
   </div>
   
   <div class="message-container" id="message-container"></div>

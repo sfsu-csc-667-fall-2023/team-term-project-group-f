@@ -6,6 +6,7 @@ const { setCurrentPlayer } = require("./set-current-player");
 const { drawCards } = require("./draw-cards");
 const { dealCards } = require("./deal-cards");
 const { setInitialized } = require("./set-initialized");
+const { setLastCard } = require("./set-last-card");
 
 const initialize = async (gameId) => {
   const { game_socket_id } = await getGame(gameId);
@@ -16,11 +17,14 @@ const initialize = async (gameId) => {
   );
 
   const users = await getUsers(gameId);
-  users.push({ user_id: 0 }); // TODO: add game sid here
+  // users.push({ user_id: 0 }); // TODO: add game sid here
 
-  const cards = await drawCards(gameId, users.length * 2);
+  const cards = await drawCards(gameId, users.length * 7);
   const dealtCards = await dealCards(users, cards, gameId);
   console.log({ dealtCards });
+
+  let lastPlayed = await drawCards(gameId, 1);
+  lastPlayed = setLastCard(gameId, lastPlayed[0].card_id);
 
   users.forEach((user) => {
     console.log({ user });
