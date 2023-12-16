@@ -6,12 +6,12 @@
   "scripts": {
     "start": "node ./backend/server.js",
     "build": "webpack",
-    "start:dev": "concurrently \"npm:server:dev\" \"npm:build:dev\"",
-    "server:dev": "set NODE_ENV=development&& nodemon ./backend/server.js",
+    "start:dev": "concurrently \"npm run server:dev\" \"npm run build:dev\"",
+    "server:dev": "cross-env NODE_ENV=development nodemon ./backend/server.js",
     "build:dev": "webpack --watch",
     "prepare": "husky install",
     "prettify": "prettier --write .",
-    "db:create": "node-pg-migrate create -- ",
+    "db:create": "node-pg-migrate create -m",
     "db:migrate": "node-pg-migrate up",
     "db:rollback": "node-pg-migrate down"
   },
@@ -48,6 +48,7 @@
     "babel-loader": "^9.1.3",
     "concurrently": "^8.2.2",
     "connect-livereload": "^0.6.1",
+    "cross-env": "^7.0.3",
     "husky": "^8.0.3",
     "lint-staged": "^15.0.2",
     "livereload": "^0.9.3",

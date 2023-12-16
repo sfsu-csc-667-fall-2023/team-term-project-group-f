@@ -7,7 +7,6 @@ router.get("/", async (request, response) => {
     const userId = request.session.userId;
 
     const user = request.session.user; // assuming user details are stored in session
-
     const availableGames = await availableGamesForUser(userId);
 
     response.render("global_lobby", { availableGames, user: user });

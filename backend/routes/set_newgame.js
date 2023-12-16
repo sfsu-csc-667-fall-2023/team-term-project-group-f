@@ -13,6 +13,7 @@ router.post("/", async (request, response) => {
   const { playerCount } = request.body; // data from set_newgame.ejs form
   const { id } = request.session.user;
 
+
   try {
     const result = await Games.create(playerCount);
     await Games.addUser(id, result.id);
@@ -26,6 +27,7 @@ router.post("/", async (request, response) => {
     // redirect to game page
     // response.status(200).send(`Game with id ${result.id} was made`);
     response.redirect(`/waiting_room/${result.id}`);
+
   } catch (error) {
     console.error("Error creating game:", error);
     response.status(500).send("Error creating game");

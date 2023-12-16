@@ -10,6 +10,7 @@
   <!-- <link rel="stylesheet" href="/styles/landing.css" /> -->
   <link rel="stylesheet" href="/styles/games.css" />
   <link rel="stylesheet" href="/styles/cards.css" />
+
 </head>
 
 <body>
@@ -17,8 +18,12 @@
     <div class="game-set">
       <div class="play-area">
         <p>Current turn: <%= currentPlayerId ? 'Your Turn' : 'Waiting...' %></p>
+        <p>Current turn: <%= currentPlayer.username %> - <%= currentPlayer.id %></p>
+        <p>You are <%= user %></p>
         <div class="buttons-container">
-          <button>Draw</button>
+          <form action="/game/<%= id %>/draw" method="POST">
+            <button type="submit">Draw</button>
+          </form>
           <button>Skip</button>
           <button>Say Uno !!!</button>
         </div>
@@ -29,7 +34,25 @@
         <div class="random"></div>
       </div>
 
+
       <div class="my-area">
+        <% myCards.forEach(card => { %>
+          <!-- <img src="<%= card.imagePath %>" alt="Card" class="mycard-button" />  implement when card images are ready-->
+          <div class="card">
+            <%= card.suit %> - <%= card.value %>
+            <form action="/game/playCard" method="post">
+              <input type="hidden" name="suit" value=<%= card.suit %>>
+              <input type="hidden" name="value" value=<%= card.value %>>
+              <input type="hidden" name="gameId" value=<%= id %>>
+              <input type="hidden" name="card_id" value=<%= card.card_id %>>
+          
+              <!-- Submit button to trigger the POST request -->
+              <% if (currentPlayer.id == user) { %>
+                <button type="submit">Play Card</button>
+                <% } %>
+          </form>
+          </div>
+        <% }) %>
         <!-- <img src="../red-0.png" alt="Button 1" class="mycard-button" />
         <img src="../green-null.png" alt="Button 2" class="mycard-button" />
         <img src="../yellow-reverse.png" alt="Button 3" class="mycard-button" />
@@ -76,9 +99,16 @@
       <h2>Game <%= id %></h2>
       <%- include('chat', { roomId: 0 }) %>
     </div>
-    
+
+    <script>
+      function exit() {
+        // Redirect to the specified URL ("/") or perform any other action
+        window.location.href = "/";
+      }      
+    </script>
 
   </main>
+  
 </body>
 
 </html>
