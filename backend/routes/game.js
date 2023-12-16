@@ -6,7 +6,6 @@ const { getUsers } = require("../db/games/get-users");
 const { getPlayerBySeat } = require("../db/games/get-player-by-seat");
 const { usersInGame } = require("../db/games");
 
-
 // router.get("/:id", (request, response) => {
 //   const { id } = request.params;
 //   response.render("game", { id: result.id });
@@ -91,8 +90,8 @@ router.post("/:id/finish", async (request, response) => {
     console.error("Error finishing game:", error);
     response.status(500).send("Error finishing game");
   }
-}
-            
+});
+
 // POST for drawing cards
 router.post("/:id/draw", async (request, response) => {
   const gameId = request.params.id;
@@ -141,7 +140,7 @@ router.post("/playCard", async (request, response) => {
     const myCards = await Games.getCardsForUser(gameId, userId);
     if (myCards.length == 0) {
       await Games.setStatus(gameId, "Finished");
-      response.redirect(`/game/${gameId}/finished`); // back to the game page
+      response.redirect(`/game/${gameId}/finish`); // back to the game page
     }
 
     // update last played card in Game
