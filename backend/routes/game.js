@@ -120,6 +120,11 @@ router.post("/playCard", async (request, response) => {
     await Games.dealCards([{ user_id: 0 }], [{ card_id }], gameId);
 
     // check if game is over
+    const myCards = await Games.getCardsForUser(gameId, userId);
+    if (myCards.length == 0) {
+      await Games.setStatus(gameId, "Finished");
+      response.redirect(`/game/${gameId}/finished`); // back to the game page
+    }
 
     // update last played card in Game
     lastPlayed = Games.setLastCard(gameId, card_id);

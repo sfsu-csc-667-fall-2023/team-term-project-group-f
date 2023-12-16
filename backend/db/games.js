@@ -19,6 +19,7 @@ const { setCurrentPlayer } = require("./games/set-current-player");
 const { getCurrentPlayer } = require("./games/get-current-player");
 const { getLastCard } = require("./games/get-last-card");
 const { setLastCard } = require("./games/set-last-card");
+const { setStatus } = require("./games/set-status");
 
 module.exports = {
   create,
@@ -42,4 +43,5 @@ module.exports = {
   getCurrentPlayer,
   getLastCard,
   setLastCard,
+  setStatus,
 };
