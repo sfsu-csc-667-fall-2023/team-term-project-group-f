@@ -15,6 +15,7 @@ const { usersInGame } = require("../db/games");
 router.get("/:id", async (request, response) => {
   const gameId = request.params.id;
   const { id } = request.session.user;
+
   const gameUsers = await usersInGame(gameId);
 
   try {
@@ -77,6 +78,21 @@ router.post("/:id/initialize", async (request, response) => {
   }
 });
 
+// finishing the game
+router.post("/:id/finish", async (request, response) => {
+  const gameId = request.params.id;
+  console.log(`Finishing game #${gameId}`);
+
+  try {
+    const winnerName = "Player Name";
+
+    openPopup(winnerName);
+  } catch (error) {
+    console.error("Error finishing game:", error);
+    response.status(500).send("Error finishing game");
+  }
+}
+            
 // POST for drawing cards
 router.post("/:id/draw", async (request, response) => {
   const gameId = request.params.id;
@@ -145,23 +161,6 @@ router.post("/playCard", async (request, response) => {
     response.status(500).send("Error drawing a card");
   }
 });
-
-// router.post("/waiting_room", async (request, response) => {
-//   const userId = request.session.userId; // Replace with actual user ID retrieval logic
-//   const { gameId } = request.body;
-
-//   console.log(request.session);
-
-//   try {
-//     await Games.addUser(userId, gameId);
-
-//     // Redirect to the game page or waiting lobby
-//     response.redirect(`/game/${gameId}`);
-//   } catch (error) {
-//     console.error("Error joining game:", error);
-//     response.status(500).send("Error joining game");
-//   }
-// });
 
 router.post("/waiting_room", async (request, response) => {
   console.log("POST waiting_room triggered");

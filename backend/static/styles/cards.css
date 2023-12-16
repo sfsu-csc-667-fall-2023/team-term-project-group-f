@@ -1,0 +1,333 @@
+/* red cards */
+
+.red-0 {
+  background: url("../images/cards.png") -0px -0px;
+  width: 100px;
+  height: 150px;
+}
+
+.red-1 {
+  background: url("../images/cards.png") -100px -0px;
+  width: 100px;
+  height: 150px;
+}
+
+.red-2 {
+  background: url("../images/cards.png") -200px -0px;
+  width: 100px;
+  height: 150px;
+}
+
+.red-3 {
+  background: url("../images/cards.png") -300px -0px;
+  width: 100px;
+  height: 150px;
+}
+
+.red-4 {
+  background: url("../images/cards.png") -400px -0px;
+  width: 100px;
+  height: 150px;
+}
+
+.red-5 {
+  background: url("../images/cards.png") -500px -0px;
+  width: 100px;
+  height: 150px;
+}
+
+.red-6 {
+  background: url("../images/cards.png") -600px -0px;
+  width: 100px;
+  height: 150px;
+}
+
+.red-7 {
+  background: url("../images/cards.png") -700px -0px;
+  width: 100px;
+  height: 150px;
+}
+
+.red-8 {
+  background: url("../images/cards.png") -800px -0px;
+  width: 100px;
+  height: 150px;
+}
+
+.red-9 {
+  background: url("../images/cards.png") -900px -0px;
+  width: 100px;
+  height: 150px;
+}
+
+.red-null {
+  background: url("../images/cards.png") -1000px -0px;
+  width: 100px;
+  height: 150px;
+}
+
+.red-reverse {
+  background: url("../images/cards.png") -1100px -0px;
+  width: 100px;
+  height: 150px;
+}
+
+.red-plus2 {
+  background: url("../images/cards.png") -1200px -0px;
+  width: 100px;
+  height: 150px;
+}
+
+/* yellow cards */
+
+.yellow-0 {
+  background: url("../images/cards.png") -0px -150px;
+  width: 100px;
+  height: 150px;
+}
+
+.yellow-1 {
+  background: url("../images/cards.png") -100px -150px;
+  width: 100px;
+  height: 150px;
+}
+
+.yellow-2 {
+  background: url("../images/cards.png") -200px -150px;
+  width: 100px;
+  height: 150px;
+}
+
+.yellow-3 {
+  background: url("../images/cards.png") -300px -150px;
+  width: 100px;
+  height: 150px;
+}
+
+.yellow-4 {
+  background: url("../images/cards.png") -400px -150px;
+  width: 100px;
+  height: 150px;
+}
+
+.yellow-5 {
+  background: url("../images/cards.png") -500px -150px;
+  width: 100px;
+  height: 150px;
+}
+
+.yellow-6 {
+  background: url("../images/cards.png") -600px -150px;
+  width: 100px;
+  height: 150px;
+}
+
+.yellow-7 {
+  background: url("../images/cards.png") -700px -150px;
+  width: 100px;
+  height: 150px;
+}
+
+.yellow-8 {
+  background: url("../images/cards.png") -800px -150px;
+  width: 100px;
+  height: 150px;
+}
+
+.yellow-9 {
+  background: url("../images/cards.png") -900px -150px;
+  width: 100px;
+  height: 150px;
+}
+
+.yellow-null {
+  background: url("../images/cards.png") -1000px -150px;
+  width: 100px;
+  height: 150px;
+}
+
+.yellow-reverse {
+  background: url("../images/cards.png") -1100px -150px;
+  width: 100px;
+  height: 150px;
+}
+
+.yellow-plus2 {
+  background: url("../images/cards.png") -1200px -150px;
+  width: 100px;
+  height: 150px;
+}
+
+/* green cards */
+
+.green-0 {
+  background: url("../images/cards.png") -0px -300px;
+  width: 100px;
+  height: 150px;
+}
+
+.green-1 {
+  background: url("../images/cards.png") -100px -300px;
+  width: 100px;
+  height: 150px;
+}
+
+.green-2 {
+  background: url("../images/cards.png") -200px -300px;
+  width: 100px;
+  height: 150px;
+}
+
+.green-3 {
+  background: url("../images/cards.png") -300px -300px;
+  width: 100px;
+  height: 150px;
+}
+
+.green-4 {
+  background: url("../images/cards.png") -400px -300px;
+  width: 100px;
+  height: 150px;
+}
+
+.green-5 {
+  background: url("../images/cards.png") -500px -300px;
+  width: 100px;
+  height: 150px;
+}
+
+.green-6 {
+  background: url("../images/cards.png") -600px -300px;
+  width: 100px;
+  height: 150px;
+}
+
+.green-7 {
+  background: url("../images/cards.png") -700px -300px;
+  width: 100px;
+  height: 150px;
+}
+
+.green-8 {
+  background: url("../images/cards.png") -800px -300px;
+  width: 100px;
+  height: 150px;
+}
+
+.green-9 {
+  background: url("../images/cards.png") -900px -300px;
+  width: 100px;
+  height: 150px;
+}
+
+.green-null {
+  background: url("../images/cards.png") -1000px -300px;
+  width: 100px;
+  height: 150px;
+}
+
+.green-reverse {
+  background: url("../images/cards.png") -1100px -300px;
+  width: 100px;
+  height: 150px;
+}
+
+.green-plus2 {
+  background: url("../images/cards.png") -1200px -300px;
+  width: 100px;
+  height: 150px;
+}
+
+/* blue cards */
+
+.blue-0 {
+  background: url("../images/cards.png") -0px -450px;
+  width: 100px;
+  height: 150px;
+}
+
+.blue-1 {
+  background: url("../images/cards.png") -100px -450px;
+  width: 100px;
+  height: 150px;
+}
+
+.blue-2 {
+  background: url("../images/cards.png") -200px -450px;
+  width: 100px;
+  height: 150px;
+}
+
+.blue-3 {
+  background: url("../images/cards.png") -300px -450px;
+  width: 100px;
+  height: 150px;
+}
+
+.blue-4 {
+  background: url("../images/cards.png") -400px -450px;
+  width: 100px;
+  height: 150px;
+}
+
+.blue-5 {
+  background: url("../images/cards.png") -500px -450px;
+  width: 100px;
+  height: 150px;
+}
+
+.blue-6 {
+  background: url("../images/cards.png") -600px -450px;
+  width: 100px;
+  height: 150px;
+}
+
+.blue-7 {
+  background: url("../images/cards.png") -700px -450px;
+  width: 100px;
+  height: 150px;
+}
+
+.blue-8 {
+  background: url("../images/cards.png") -800px -450px;
+  width: 100px;
+  height: 150px;
+}
+
+.blue-9 {
+  background: url("../images/cards.png") -900px -450px;
+  width: 100px;
+  height: 150px;
+}
+
+.blue-null {
+  background: url("../images/cards.png") -1000px -450px;
+  width: 100px;
+  height: 150px;
+}
+
+.blue-reverse {
+  background: url("../images/cards.png") -1100px -450px;
+  width: 100px;
+  height: 150px;
+}
+
+.blue-plus2 {
+  background: url("../images/cards.png") -1200px -450px;
+  width: 100px;
+  height: 150px;
+}
+
+/* special cards */
+
+.random {
+  background: url("../images/cards.png") -1300px -0px;
+  width: 100px;
+  height: 150px;
+}
+
+.plus4 {
+  background: url("../images/cards.png") -1300px -600px;
+  width: 100px;
+  height: 150px;
+}
