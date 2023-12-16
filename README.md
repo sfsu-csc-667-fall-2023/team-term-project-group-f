@@ -36,6 +36,19 @@ Uno, the classic card game, is now available in a digital format with real-time 
 - Save/Load: Players can save their game state and continue later.
 - Game Notifications: Notify players about turns, status, card draws, etc.
 
+## Database
+- Users Table: Stores information about the users, including their credentials and basic details.
+- Games Table: Holds details about each game session, such as the number of players, the current state of the game, and initialization status.
+- Game_Users Table: Links users to games they are participating in and tracks additional game-specific user information like their seat and readiness status.
+- Cards Table: Contains information about individual cards, including their suit and value.
+- Game_Cards Table: Manages the state and location of each card within a game, such as which cards are in the deck, in a player's hand, or in the discard pile.
+- Messages Table: Used for storing messages related to a game, facilitating in-game communication between players.
+  
+- Database Design Link : https://dbdiagram.io/d/Uno-Project-657504f556d8064ca0b729fd
+  
+![image](https://github.com/sfsu-csc-667-fall-2023/team-term-project-group-f/assets/69046025/823eb270-2834-4374-9ca4-ae9ce791b62d)
+
+
 ## Technology Stack
 - Render
 - Node.js
