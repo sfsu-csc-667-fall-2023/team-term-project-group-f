@@ -43,6 +43,9 @@ Uno, the classic card game, is now available in a digital format with real-time 
 - Cards Table: Contains information about individual cards, including their suit and value.
 - Game_Cards Table: Manages the state and location of each card within a game, such as which cards are in the deck, in a player's hand, or in the discard pile.
 - Messages Table: Used for storing messages related to a game, facilitating in-game communication between players.
+
+- Add a dealer into users table for initializing the game and for managing game mechanics such as shuffling and dealing cards :
+  ``` INSERT INTO Users (id, username, password) VALUES (0, 'dealer', 'password123'); ```
   
 - Database Design Link : https://dbdiagram.io/d/Uno-Project-657504f556d8064ca0b729fd
   
